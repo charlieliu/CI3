@@ -1,0 +1,84 @@
+#abgne-block-20140616, #scale, #skew, #rotate, #translate
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 0px;
+    left: 50px;
+    width: 650px;
+    height: 100px;
+}
+#abgne-block-20140616 li, #scale li, #skew li, #rotate li, #translate li
+{
+    position: absolute;
+    z-index: 0;
+    -webkit-transition: -webkit-transform 0.4s linear;
+    -moz-transition: -moz-transform 0.4s linear;
+    -o-transition: -o-transform 0.4s linear;
+    -ms-transition: -ms-transform 0.4s linear;
+    transition: transform 0.4s linear;
+}
+#abgne-block-20140616 li:nth-child(1), #scale li:nth-child(1), #skew li:nth-child(1), #rotate li:nth-child(1), #translate li:nth-child(1)
+{
+    left: 0px;
+}
+#abgne-block-20140616 li:nth-child(2), #scale li:nth-child(2), #skew li:nth-child(2), #rotate li:nth-child(2), #translate li:nth-child(2)
+{
+    left: 110px;
+}
+#abgne-block-20140616 li:nth-child(3), #scale li:nth-child(3), #skew li:nth-child(3), #rotate li:nth-child(3), #translate li:nth-child(3)
+{
+    left: 220px;
+}
+#abgne-block-20140616 li:nth-child(4), #scale li:nth-child(4), #skew li:nth-child(4), #rotate li:nth-child(4), #translate li:nth-child(4)
+{
+    left: 330px;
+}
+#abgne-block-20140616 li:nth-child(5), #scale li:nth-child(5), #skew li:nth-child(5), #rotate li:nth-child(5), #translate li:nth-child(5)
+{
+    left: 440px;
+}
+#abgne-block-20140616 li:nth-child(6), #scale li:nth-child(6), #skew li:nth-child(6), #rotate li:nth-child(6), #translate li:nth-child(6)
+{
+    left: 550px;
+}
+#abgne-block-20140616 li:hover {
+    /* scaleX(x), skewX(tanY), skewX(tanX), scaleX(Y), translate(X), translate(Y) */
+    -ms-transform: matrix(2,-0.5,1,2,0,0); /* IE 9 */
+    -webkit-transform: matrix(2,-0.5,1,2,0,0); /* Chrome, Safari, Opera */
+    transform: matrix(2,-0.5,1,2,0,0);
+    z-index: 1;
+}
+#scale li:hover {
+    transform: scale(2,2);
+    -ms-transform: scale(2,2);  /* IE 9 */
+    -webkit-transform: scale(2,2);  /* Safari 和 Chrome */
+    -o-transform: scale(2,2);   /* Opera */
+    -moz-transform: scale(2,2); /* Firefox */
+    z-index: 1;
+}
+#skew li:hover {
+    transform: skew(30deg,30deg);
+    -ms-transform: skew(30deg,30deg);   /* IE 9 */
+    -webkit-transform: skew(30deg,30deg);   /* Safari and Chrome */
+    -o-transform: skew(30deg,30deg);    /* Opera */
+    -moz-transform: skew(30deg,30deg);  /* Firefox */
+    z-index: 1;
+}
+#rotate li:hover {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);       /* IE 9 */
+    -webkit-transform: rotate(360deg);   /* Safari and Chrome */
+    -o-transform: rotate(360deg);        /* Opera */
+    -moz-transform: rotate(360deg);      /* Firefox */
+    z-index: 1;
+}
+#translate li:hover {
+    transform: translate(100px,100px);
+    -ms-transform: translate(100px,100px);       /* IE 9 */
+    -webkit-transform: translate(100px,100px);   /* Safari and Chrome */
+    -o-transform: translate(100px,100px);        /* Opera */
+    -moz-transform: translate(100px,100px);      /* Firefox */
+    z-index: 1;
+}

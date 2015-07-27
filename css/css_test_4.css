@@ -1,0 +1,50 @@
+#abgne-block-20140105, #abgne-block-20140105 li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#abgne-block-20140105 {
+    position: relative;
+    top: 0px;
+    left: 50px;
+    width: 650px;
+    height: 100px;
+}
+#abgne-block-20140105 li {
+    position: absolute;
+    -webkit-transition: -webkit-transform 0.4s linear;
+    -moz-transition: -moz-transform 0.4s linear;
+    -o-transition: -o-transform 0.4s linear;
+    -ms-transition: -ms-transform 0.4s linear;
+    transition: transform 0.4s linear;
+}
+#abgne-block-20140105 li:nth-child(1) {
+    left: 0px;
+}
+#abgne-block-20140105 li:nth-child(2) {
+    left: 110px;
+}
+#abgne-block-20140105 li:nth-child(3) {
+    left: 220px;
+}
+#abgne-block-20140105 li:nth-child(4) {
+    left: 330px;
+}
+#abgne-block-20140105 li:nth-child(5) {
+    left: 440px;
+}
+#abgne-block-20140105 li:nth-child(6) {
+    left: 550px;
+}
+#abgne-block-20140105 li:hover {
+    /* scale(X,Y)縮放 skew(X,Y)歪斜 rotate(D)旋轉 translate(X,Y)位移 */
+    -webkit-transform: scale(2) skew(30deg,20deg);
+    -moz-transform: scale(2) skew(30deg,20deg);
+    -o-transform: scale(2) skew(30deg,20deg);
+    -ms-transform: scale(2) skew(30deg,20deg);
+    transform: scale(2) skew(30deg,20deg);
+    z-index: 1;
+}
+#abgne-block-20140105 li a img {
+    border: none;
+}

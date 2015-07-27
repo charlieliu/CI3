@@ -1,0 +1,68 @@
+/* 單選框 */
+.abgne-menu-20140109-1, .abgne-menu-20140109-1 li {
+    list-style: none;
+    margin: 5px 0;
+    padding: 0;
+}
+.abgne-menu-20140109-1 label {
+    cursor: pointer;
+    display: block;
+    width: 120px;
+    position: relative;
+    line-height: 31px;
+}
+.abgne-menu-20140109-1 label::after {
+    content:"No";
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 50%;
+    padding: 3px;
+    color: #FFF;
+    background: #f00;
+    text-align: center;
+    position: absolute;
+    right: 0;
+}
+.abgne-menu-20140109-1 input[type="radio"] {
+    display: none;
+}
+.abgne-menu-20140109-1 input[type="radio"]:checked + label::after {
+    content:"Yes";
+    background: green;
+}
+/* 多選框 */
+ .abgne-menu-20140109-2, .abgne-menu-20140109-2 li {
+    list-style: none;
+    margin: 5px 0;
+    padding: 0;
+}
+.abgne-menu-20140109-2 label {
+    cursor: pointer;
+    display: block;
+    width: 120px;
+    position: relative;
+    line-height: 31px;
+}
+.abgne-menu-20140109-2 label::after {
+    content:"No";
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 50%;
+    padding: 3px;
+    color: #FFF;
+    background: #f00;
+    text-align: center;
+    position: absolute;
+    right: 0;
+}
+.abgne-menu-20140109-2 input[type="checkbox"] {
+    display: none;
+}
+.abgne-menu-20140109-2 input[type="checkbox"]:checked + label::after {
+    content:"Yes";
+    background: green;
+}
