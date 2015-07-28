@@ -28,9 +28,9 @@ class Php_test extends CI_Controller {
 		);
 
 		// load parser
-		$this->load->library(array('parser','session', 'pub'));
+		//$this->load->library(array('parser','session', 'pub'));
 		$this->load->helper(array('form', 'url'));
-		$this->load->model('php_test_model','',TRUE) ;
+		//$this->load->model('php_test_model','',TRUE) ;
 
 		$this->UserAgent = $this->pub->get_UserAgent() ;
 		if( isset($this->UserAgent['O']) )
@@ -1616,7 +1616,7 @@ class Php_test extends CI_Controller {
 
 		// title
 		$th = array();
-		$th[] = 'index';
+		//$th[] = 'index';
 		$th[] = 'passwords';
 		foreach ( $hash_array as $hash_type )
 		{
@@ -1633,7 +1633,7 @@ class Php_test extends CI_Controller {
 			{
 				//$pwd_row++ ;
 				//$td_row['index'] = $pwd_row ;
-				$td_row['index'] = $row['hash_id'] ;
+				//$td_row['index'] = $row['hash_id'] ;
 				$td_row['passwords'] = $row['hash_key'] ;
 				foreach ( $hash_array as $hash_type )
 				{
@@ -1708,9 +1708,9 @@ class Php_test extends CI_Controller {
 	public function toppwds()
 	{
 		$mun = $this->php_test_model->get_hash_test_num();
-		if( !empty($mun[0]['total']) )
+		if( !empty($mun) )
 		{
-			$mun = intval($mun[0]['total']) ;
+			$mun = intval($mun) ;
 		}
 		else
 		{
@@ -2114,11 +2114,12 @@ class Php_test extends CI_Controller {
 			'barn','betacam','biz','boat','cuda','doc','hal','hallowell','haro','hosehead','i','ilmari','irmeli','j1l2t3','jer','kcin',
 			'kerrya','kissa2','leaf','lissabon','mart','matti1','mech','morecats','paagal','performa','prof','ratio','ship','slip',
 			'stivers','tapani','targas','test2','test3','tula','unix','user1','xanth','!@#$%^&','1701d','@#$%^&','Qwert','allo',
-			'dirk','go','newcourt','nite','notused','sss'
+			'dirk','go','newcourt','nite','notused','sss',
+			'1qaz','1qaz2wsx','asdfg','zxcvb',
 		);
 		foreach ( $toppwds as $key=>$val )
 		{
-			$this->php_test_model->query_hash_test($val);
+			$this->php_test_model->query_hash_test($val,$key);
 		};
 	}
 

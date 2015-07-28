@@ -415,9 +415,14 @@ class Html5_test extends CI_Controller {
 		$user_Agent_list[] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/538.15 (KHTML, like Gecko) Version/8.0 Safari/538.15 Ubuntu/14.04 (3.10.3-0ubuntu2) Epiphany/3.10.3' ;
 		$user_Agent_list[] = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X; zh-tw) AppleWebKit/537+ (KHTML, like Gecko) Version/5.0 Safari/537.6+ Midori/0.4' ;
 		$user_Agent_list[] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36 OPR/28.0.1750.48' ;
+		$user_Agent_list[] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36 OPR/30.0.1835.125' ;
 		$user_Agent_list[] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.21 (KHTML, like Gecko) QupZilla/1.6.0 Safari/537.21' ;
 		$user_Agent_list[] = 'Mozilla/5.0 (X11; Linux x86_64) KHTML/4.14.2 (like Gecko) Konqueror/4.14' ;
 		$user_Agent_list[] = 'Mozilla/5.0 (X11; Linux x86_64; rv:25.3) Gecko/20150425 Firefox/31.9 PaleMoon/25.3.2' ;
+		$user_Agent_list[] = 'Dooble/0.07 (zh_TW) WebKit' ;
+		$user_Agent_list[] = 'NetSurf/2.9 (Linux; x86_64)' ;
+		$user_Agent_list[] = 'Mozilla/5.0 (X11; Linux x86_64) KHTML/4.14.2 (like Gecko) Konqueror/4.14' ;
+		$user_Agent_list[] = 'Links (2.8; Linux 3.16.0-38-generic x86_64; GNU C 4.8.2; x)' ;
 
 		# Mac
 		$user_Agent_list[] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:29.0) Gecko/20100101 Firefox/29.0' ;

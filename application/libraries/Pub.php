@@ -323,8 +323,7 @@ class Pub{
 		{
 			$output['A'] = "Firefox";
 		}
-		else if
-		( strpos($str,"Opera")!== false || strpos($str,"OPR")!== false )
+		else if( strpos($str,"Opera")!== false || strpos($str,"OPR")!== false )
 		{
 			$output['A'] = "Opera";
 		}
@@ -368,7 +367,7 @@ class Pub{
 			$sit_1 = stripos($str,')') ;
 			$output['AN'] = substr($str,0,$sit_1) ;
 		}
-		else if( strpos($str,"Links")!== false )
+		else if( strpos($str,"ELinks")!== false )
 		{
 			$output['A'] = "ELinks";
 			$sit_0 = stripos($str,'ELinks/') + 7;
@@ -389,6 +388,18 @@ class Pub{
 			$output['A'] = 'Dillo';
 			$output['S'] = 'Linux';
 			$output['M'] = 'Desktop';
+		}
+		else if( strpos($str,"Dooble")!== false )
+		{
+			$output['A'] = 'Dooble';
+			$sit_0 = stripos($str,'Dooble/') + 7;
+			$str = substr($str,$sit_0) ;
+		}
+		else if( strpos($str,"NetSurf")!== false )
+		{
+			$output['A'] = 'NetSurf';
+			$sit_0 = stripos($str,'NetSurf/') + 8;
+			$str = substr($str,$sit_0) ;
 		}
 		else if( strpos($str,"curl")!== false || strpos($str,"nmap")!== false )
 		{
