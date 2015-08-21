@@ -793,7 +793,7 @@ class Php_test extends CI_Controller {
 			'current_page' => strtolower(__CLASS__), // 當下類別
 			'current_fun' => strtolower(__FUNCTION__), // 當下function
 			'content' => $content,
-			'hash_str'=> $test_str,
+			'hash_str'=> htmlspecialchars($test_str),
 		);
 
 		// Template parser class
@@ -1634,7 +1634,8 @@ class Php_test extends CI_Controller {
 				//$pwd_row++ ;
 				//$td_row['index'] = $pwd_row ;
 				//$td_row['index'] = $row['hash_id'] ;
-				$td_row['passwords'] = $row['hash_key'] ;
+				$td_row['passwords'] = htmlspecialchars($row['hash_key']) ;
+				//$td_row['passwords'] = $row['hash_key'] ;
 				foreach ( $hash_array as $hash_type )
 				{
 					$td_row[$hash_type.'_var'] = $row[$hash_type.'_var'] ;
