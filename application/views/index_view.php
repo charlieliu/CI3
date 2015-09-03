@@ -52,6 +52,10 @@
             );
             echo load_html_file($link);
         }
+        else
+        {
+            print_r($val);
+        }
     }
 
     if( !empty($css_ie) && is_array($css_ie) && count($css_ie) )
@@ -98,6 +102,10 @@
                 'ver'   => '',
             );
             echo load_html_file($link);
+        }
+        else
+        {
+            print_r($val);
         }
     }
 

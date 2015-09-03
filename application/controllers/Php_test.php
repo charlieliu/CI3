@@ -731,32 +731,32 @@ class Php_test extends CI_Controller {
 
 		$content[] = array(
 			'content_title' => 'base64_encode()',
-			'content_value' => base64_encode($test_str),
+			'content_value' => htmlspecialchars(base64_encode($test_str)),
 		) ;
 
 		$content[] = array(
 			'content_title' => 'urlencode()',
-			'content_value' => urlencode($test_str),
+			'content_value' => htmlspecialchars(urlencode($test_str)),
 		) ;
 
 		$content[] = array(
 			'content_title' => 'rawurlencode()',
-			'content_value' => rawurlencode($test_str),
+			'content_value' => htmlspecialchars(rawurlencode($test_str)),
 		) ;
 
 		$content[] = array(
 			'content_title' => 'utf8_encode()',
-			'content_value' => utf8_encode($test_str),
+			'content_value' => htmlspecialchars(utf8_encode($test_str)),
 		) ;
 
 		$content[] = array(
 			'content_title' => 'ASCII',
-			'content_value' => $this->pub->str_to_ascii($test_str),
+			'content_value' => htmlspecialchars($this->pub->str_to_ascii($test_str)),
 		) ;
 
 		$content[] = array(
 			'content_title' => 'serialize()',
-			'content_value' => serialize($test_str),
+			'content_value' => htmlspecialchars(serialize($test_str)),
 		) ;
 
 		foreach( $hash_array as $v )
@@ -820,7 +820,7 @@ class Php_test extends CI_Controller {
 
 		$content[] = array(
 			'content_title' => 'base64_decode()',
-			'content_value' => base64_decode($test_str),
+			'content_value' => htmlspecialchars(base64_decode($test_str)),
 		) ;
 
 		// 6Ihq6UpmpuYH6MiGR6ZHLAYGBqjG58hniObopg
@@ -833,17 +833,17 @@ class Php_test extends CI_Controller {
 
 		$content[] = array(
 			'content_title' => 'urldecode()',
-			'content_value' => urldecode($test_str),
+			'content_value' => htmlspecialchars(urldecode($test_str)),
 		) ;
 
 		$content[] = array(
 			'content_title' => 'rawurldecode()',
-			'content_value' => rawurldecode($test_str),
+			'content_value' => htmlspecialchars(rawurldecode($test_str)),
 		) ;
 
 		$content[] = array(
 			'content_title' => 'utf8_decode()',
-			'content_value' => utf8_decode($test_str),
+			'content_value' => htmlspecialchars(utf8_decode($test_str)),
 		) ;
 
 		$chr_str = is_numeric($test_str) ? chr($test_str) : '' ;
@@ -872,7 +872,7 @@ class Php_test extends CI_Controller {
 			'current_page' => strtolower(__CLASS__), // 當下類別
 			'current_fun' => strtolower(__FUNCTION__), // 當下function
 			'content' => $content,
-			'hash_str'=> $test_str,
+			'hash_str'=>htmlspecialchars($test_str) ,
 		);
 
 		// Template parser class
