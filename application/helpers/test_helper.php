@@ -50,8 +50,8 @@ if(!function_exists('load_html_file'))
                         }
                         //$html .= '" integrity="sha512-'.hash_file('sha512',$link['href']).'" crossorigin="anonymous';
                         //$html .= '" integrity="sha512-'.hash('sha512',$link['href']).'" crossorigin="anonymous';
-                        $html .= '" hash_file="sha512-'.hash_file('sha512',$link['href']);
-                        $html .= '" hash="sha512-'.hash('sha512',$link['href']);
+                        //$html .= '" hash_file="sha512-'.hash_file('sha512',$link['href']);
+                       // $html .= '" hash="sha512-'.hash('sha512',$link['href']);
                         $html .= '" />';
                     }
                     break;
