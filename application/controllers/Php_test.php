@@ -750,6 +750,11 @@ class Php_test extends CI_Controller {
 		) ;
 
 		$content[] = array(
+			'content_title' => 'utf8_decode()',
+			'content_value' => htmlspecialchars(utf8_decode($test_str)),
+		) ;
+
+		$content[] = array(
 			'content_title' => 'ASCII',
 			'content_value' => htmlspecialchars($this->pub->str_to_ascii($test_str)),
 		) ;
@@ -780,6 +785,12 @@ class Php_test extends CI_Controller {
 				) ;
 			}
 		}
+
+		//$this->load->helper('text');
+		//$content[] = array(
+		//	'content_title' => 'entities_to_ascii',
+		//	'content_value' => entities_to_ascii($test_str),
+		//) ;
 
 		if( $test_str!='' )
 		{
@@ -853,12 +864,68 @@ class Php_test extends CI_Controller {
 			'content_value' => $chr_str,
 		) ;
 
+		//$this->load->helper('text');
+		$ex = explode('\u', $test_str);
+		$chr_arr = array();
+		foreach ($ex as $value)
+		{
+			if( $value!='' )
+			{
+				//echo '$value = '.$value.'('.gettype($value).')<br>' ;
+				//$value = base_convert($value,16,2) ;
+				//echo 'base_convert($value,16,2) = '.$value.'('.gettype($value).')<br>' ;
+				$value = chr($value) ;
+				//echo 'chr($value) = '.$value.'('.gettype($value).')<br>' ;
+
+				//$value = ascii_to_entities($value);
+				//echo 'ascii_to_entities($value) = '.$value.'('.gettype($value).')<br>' ;
+				//$value = convert_accented_characters($value);
+				//echo 'convert_accented_characters($value) = '.$value.'('.gettype($value).')<br>' ;
+
+				//$value = utf8_decode($value) ;
+				//echo $value.'('.gettype($value).')<br>' ;
+				$value = utf8_encode($value) ;
+				//echo 'utf8_encode($value) = '.$value.'('.gettype($value).')<br>' ;
+
+				//$value = iconv('ascii', 'UTF-8', $value) ;
+				//echo 'iconv("ascii", "UTF-8", $value)  = '.$value.'('.gettype($value).')<br>' ;
+
+				$value = htmlspecialchars($value) ;
+				//echo 'htmlspecialchars($value) = '.$value.'('.gettype($value).')<br>' ;
+
+				$value = ($value==' ') ? '&nbsp;' : $value ;
+				$chr_arr[] = $value ;
+			}
+		}
+		$chr_str = implode($chr_arr) ;
+		//$chr_str = mb_convert_encoding($chr_arr, 'UTF-8') ;
+		$content[] = array(
+			'content_title' => 'UTF-8',
+			'content_value' => $chr_str ,
+		) ;
+
 		$chr = base_convert($test_str,16,10) ;
 		$chr_str = chr($chr) ;
 		$chr_str = ($chr_str==' ') ? '&nbsp;' : $chr_str ;
 		$content[] = array(
 			'content_title' => 'chr(16)',
 			'content_value' => $chr_str.'('.$chr.')',
+		) ;
+
+		$content[] = array(
+			'content_title' => 'intval',
+			'content_value' => intval($test_str),
+		) ;
+
+		$floatval_str= floatval(str_replace(',', '', $test_str));
+		$content[] = array(
+			'content_title' => 'floatval',
+			'content_value' => $floatval_str,
+		) ;
+
+		$content[] = array(
+			'content_title' => 'strtotime',
+			'content_value' => strtotime($test_str),
 		) ;
 /*
 		var_dump(base_convert('\x{00e6}',16,10));
@@ -1037,6 +1104,13 @@ class Php_test extends CI_Controller {
 			'reg'    => preg_match('/^[\x{0061}-\x{007a}]+$/u',$str),
 			'remark2'=> '/[\x{0061}-\x{007a}]/u',
 			'reg2'   => preg_match('/[\x{0061}-\x{007a}]/u',$str),
+		);
+		$preg_array[] = array(
+			'fun'    => '全部英數字大小寫符號',
+			'remark' => '/^[\x{0021}-\x{007e}]+$/',
+			'reg'    => preg_match('/^[\x{0021}-\x{007e}]+$/',$str),
+			'remark2'=> '/^[\x{21}-\x{7e}]+$/',
+			'reg2'   => preg_match('/^[\x{21}-\x{7e}]+$/',$str),
 		);
 
 
