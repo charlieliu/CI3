@@ -22,6 +22,7 @@ class Welcome extends CI_Controller {
 	{
 		//$this->load->view('welcome_message');
 		$content = $this->page_list;
+
 		// 標題 內容顯示
 		$data = array(
 			'title' => 'Home',
@@ -52,18 +53,20 @@ class Welcome extends CI_Controller {
 	{
 		echo json_encode($this->page_list);
 	}
-	
+
 	public function __construct()
 	{
 		parent::__construct();
+
 		ini_set("session.cookie_httponly", 1);
 		header("x-frame-options:sammeorigin");
 		header('Content-Type: text/html; charset=utf8');
 		// load parser
-		$this->load->library(array('parser','session', 'pub'));
+		//$this->load->library(array('parser','session', 'pub'));
 		$this->load->helper(array('form', 'url'));
-		//$this->pub->check_session($this->session->userdata('session_id'));
 		$this->load->model('php_test_model','',TRUE) ;
+
+		$this->pub->check_login();
 
 		$this->UserAgent = $this->pub->get_UserAgent() ;
 		if( isset($this->UserAgent['O']) )

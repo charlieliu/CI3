@@ -99,23 +99,35 @@ class Login extends CI_Controller {
 			//$status = 'users total'.intval($users['total']) ;
 			$status = 101 ;
 		}
-		else
+		else if( intval($users['total'])==1 )
 		{
 			// check pwds
 			$pwds_hash = substr(md5($users['data'][0]['salt'].$post['pwd']),0,20) ;
 			if( $pwds_hash==$users['data'][0]['password'] )
 			{
+				$updateUsers = $this->login_model->updateUsers($users['data'][0]['uid']);
+
 				$userdata = array(
 					'uid'=>$users['data'][0]['uid'],
 					'username'=>$users['data'][0]['username'],
+					'updateUsers'=>$updateUsers,
 				);
 				$this->session->set_userdata($userdata);
+
 				$status = 100;
+			}
+			else if( empty($users['data'][0]['auth_type']) )
+			{
+				$status = 102;
 			}
 			else
 			{
 				$status = 102;
 			}
+		}
+		else
+		{
+			$status = 104;
 		}
 		if( !empty($post) )
 		{
@@ -176,6 +188,11 @@ class Login extends CI_Controller {
 		else
 		{
 			$pwd_level = $this->password_strength->check_strength($post['pwd']) ;
+			if( $pwd_level<=2 )
+			{
+				$status = '密碼強度不足';
+			}
+			/*
 			if( !preg_match("/^(\w|\-|\#)+$/", $post['pwd']) )
 			{
 				$status = '6碼英數字或符號，符號限[_][-][#]';
@@ -184,6 +201,7 @@ class Login extends CI_Controller {
 			{
 				$status = '密碼強度不足';
 			}
+			*/
 		}
 		if( empty($post['repwd']) )
 		{
@@ -241,6 +259,7 @@ class Login extends CI_Controller {
 	public function get_url($tag='')
 	{
 		header('content-type: application/javascript') ;
+		echo 'var IndexURLs = "'.base_url().'";' ;
 		switch ($tag) {
 			case 'login':
 				echo 'var URLs = "'.base_url().'login/check_login";' ;
@@ -252,6 +271,13 @@ class Login extends CI_Controller {
 				echo 'var URLs = "'.base_url().'";' ;
 				break;
 		}
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		//print_r($_SESSION) ;
+		header('Location: '.base_url()) ;
 	}
 }
 ?>

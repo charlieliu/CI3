@@ -9,18 +9,21 @@ class Add_hash_lib extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
 		ini_set("session.cookie_httponly", 1);
 		header("x-frame-options:sammeorigin");
 		header('Content-Type: text/html; charset=utf8');
 		//echo 'LINE : '.__LINE__.'<br>' ;
 
 		// load parser
-		$this->load->library(array('parser','session', 'pub'));
+		//$this->load->library(array('parser','session', 'pub'));
 		//echo 'LINE : '.__LINE__.'<br>' ;
 		$this->load->helper(array('form', 'url'));
 		//echo 'LINE : '.__LINE__.'<br>' ;
 		$this->load->model('add_hash_lib_model','',TRUE) ;
 		//echo 'LINE : '.__LINE__.'<br>' ;
+
+		$this->pub->check_login();
 	}
 
 	public function index()

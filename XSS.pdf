@@ -1,0 +1,25 @@
+<field xmlns="http://127.0.0.1" h="22.225mm" name="HTTPSubmitButton1" w="38.1mm" x="171.45mm" y="3.175mm">
+  <?templateDesigner isHttpSubmitObject true?>
+  <ui>
+    <button/>
+  </ui>
+  <font typeface="Adobe Ming Std L"/>
+  <caption>
+    <value>
+      <text>送出</text>
+    </value>
+    <para hAlign="center" vAlign="middle"/>
+    <font size="36pt" typeface="Adobe Ming Std L"/>
+  </caption>
+  <border hand="right">
+    <?templateDesigner StyleID apbx2?>
+    <edge stroke="raised"/>
+    <fill>
+      <color value="212,208,200"/>
+    </fill>
+  </border>
+  <bind match="none"/>
+  <event activity="click">
+    <submit format="formdata" target="javascript:alert(document.cookie);" textEncoding="UTF-8"/>
+  </event>
+</field>

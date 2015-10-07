@@ -14,6 +14,9 @@ class Js_test extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->pub->check_login();
+
 		ini_set("session.cookie_httponly", 1);
 		header("x-frame-options:sammeorigin");
 		header('Content-Type: text/html; charset=utf8');
@@ -25,10 +28,12 @@ class Js_test extends CI_Controller {
 		);
 
 		// load parser
-		$this->load->library(array('parser','session', 'pub'));
+		//$this->load->library(array('parser','session', 'pub'));
 		$this->load->helper(array('form', 'url'));
 		//$this->pub->check_session($this->session->userdata('session_id'));
 		$this->load->model('php_test_model','',TRUE) ;
+
+		$this->pub->check_login();
 
 		$this->UserAgent = $this->pub->get_UserAgent() ;
 		if( isset($this->UserAgent['O']) )
@@ -107,6 +112,10 @@ class Js_test extends CI_Controller {
 		$content[] = array(
 			'content_title' => 'jQuery 測試 -- document ready/window.onload',
 			'content_url' => base_url().'js_test/jquery_test/10',
+		) ;
+		$content[] = array(
+			'content_title' => 'XSS 測試 -- images',
+			'content_url' => base_url().'js_test/xss_test',
 		) ;
 
 		$this->page_list = $content ;
@@ -630,6 +639,31 @@ class Js_test extends CI_Controller {
 		}
 		header('content-type: application/javascript') ;
 		echo 'var top_pwds = '.json_encode($pwds).';' ;
+	}
+
+	public function xss_test()
+	{
+		// 標題 內容顯示
+		$data = array(
+			'title' => 'xss_images_test',
+			'current_title' => $this->current_title,
+			'current_page' => strtolower(__CLASS__), // 當下類別
+			'current_fun' => strtolower(__FUNCTION__), // 當下function
+			'content' => '',
+			'_FILES'=>$_FILES,
+			'base_url'=>base_url(),
+		);
+
+		// 中間挖掉的部分
+		$content_div = $this->parser->parse('jquery_test/xss_images_view', $data, true);
+		// 中間部分塞入外框
+		$html_date = $data ;
+		$html_date['content_div'] = $content_div ;
+		//$html_date['js'][] = 'js/xss.js';
+		//$html_date['js'][] = 'images/new_oops.png';
+
+		$view = $this->parser->parse('index_view', $html_date, true);
+		$this->pub->remove_view_space($view);
 	}
 }
 ?>

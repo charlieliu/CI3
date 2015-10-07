@@ -135,6 +135,7 @@
 </head>
 <body>
     <noscript>Your browser does not support JavaScript!</noscript>
+    <div class="float_right mg1211"><?PHP if( isset($_SESSION['uid']) ): ?><a href="<?=base_url()?>login/logout">登出<?=$_SESSION['username']?></a><?PHP endif; ?></div>
     <div id="container">
         <?PHP if( $current_page!='welcome' && $current_page!='index'): ?>
             <div class="breadcrumb">

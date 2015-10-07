@@ -58,6 +58,7 @@ class Pub{
 		}
 		else
 		{
+			/*
 			$url = base_url().'index.php?/php_test/check_session';
 			//$url = base_url().'php_test/check_session';
 			$data = array(
@@ -74,6 +75,7 @@ class Pub{
 				//exit();
 				//echo '<script>alert("'.$data['status'].'");</script>';
 			}
+			*/
 		}
 	}
 
@@ -513,6 +515,46 @@ class Pub{
 			}
 		}
 		return $ary ;
+	}
+
+	public function utf8_encode_deep(&$input) {
+		$output = '' ;
+		if (is_string($input)) {
+			$output = utf8_encode($input);
+		}
+		else if (is_array($input))
+		{
+			$output = array();
+			foreach ($input as &$value)
+			{
+				$output[] = utf8_encode($value);
+			}
+			unset($value);
+		}
+		else if (is_object($input))
+		{
+			$output = array();
+			$vars = array_keys(get_object_vars($input));
+			foreach ($vars as $var)
+			{
+				$output[] = utf8_encode($input->$var);
+			}
+		}
+		return $output ;
+	}
+
+	public function check_login()
+	{
+		if( !isset($_SESSION['uid']) || empty($_SESSION['username']) )
+		{
+			//exit(base_url().'login');
+			header('Location: '.base_url().'login') ;
+			exit(base_url().'login');
+		}
+		else
+		{
+			//print_r($_SESSION) ;
+		}
 	}
 }
 ?>

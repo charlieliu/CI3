@@ -14,6 +14,7 @@ class Html5_test extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
 		header('Content-Type: text/html; charset=utf8');
 
 		// for CSRF
@@ -23,10 +24,11 @@ class Html5_test extends CI_Controller {
 		);
 
 		// load parser
-		$this->load->library(array('parser','session', 'pub'));
+		//$this->load->library(array('parser','session', 'pub'));
 		$this->load->helper(array('form', 'url'));
-		//$this->pub->check_session($this->session->userdata('session_id'));
 		$this->load->model('php_test_model','',TRUE) ;
+
+		$this->pub->check_login();
 
 		$this->UserAgent = $this->pub->get_UserAgent() ;
 		if( isset($this->UserAgent['O']) )

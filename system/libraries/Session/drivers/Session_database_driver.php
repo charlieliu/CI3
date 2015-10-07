@@ -214,8 +214,32 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 				'id' => $session_id,
 				'ip_address' => $_SERVER['REMOTE_ADDR'],
 				'timestamp' => time(),
-				'data' => ($this->_platform === 'postgre' ? base64_encode($session_data) : $session_data)
+				'data' => ($this->_platform === 'postgre' ? base64_encode($session_data) : $session_data),
 			);
+			if( !empty($_SERVER['HTTP_CLIENT_IP']) )
+			{
+				$insert_data['HTTP_CLIENT_IP'] = $_SERVER['HTTP_CLIENT_IP'] ;
+			}
+			if( !empty($_SERVER['HTTP_X_FORWARDED_FOR']) )
+			{
+				$insert_data['HTTP_X_FORWARDED_FOR'] = $_SERVER['HTTP_X_FORWARDED_FOR'] ;
+			}
+			if( !empty($_SERVER['HTTP_X_CLIENT_IP']) )
+			{
+				$insert_data['HTTP_X_CLIENT_IP'] = $_SERVER['HTTP_X_CLIENT_IP'] ;
+			}
+			if( !empty($insert_data['HTTP_X_CLUSTER_CLIENT_IP']) )
+			{
+				$insert_data['HTTP_X_CLUSTER_CLIENT_IP'] = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ;
+			}
+			if( !empty($_SERVER['REMOTE_ADDR']) )
+			{
+				$insert_data['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'] ;
+			}
+			if( !empty($_SERVER['HTTP_USER_AGENT']) )
+			{
+				$insert_data['HTTP_USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'] ;
+			}
 
 			if ($this->_db->insert($this->_config['save_path'], $insert_data))
 			{

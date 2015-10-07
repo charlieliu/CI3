@@ -18,6 +18,7 @@ class Predis_test extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
 		ini_set("session.cookie_httponly", 1);
 		header("x-frame-options:sammeorigin");
 		header('Content-Type: text/html; charset=utf8');
@@ -29,8 +30,10 @@ class Predis_test extends CI_Controller {
 		);
 
 		// load parser
-		$this->load->library(array('parser','session', 'pub'));
+		//$this->load->library(array('parser','session', 'pub'));
 		$this->load->helper(array('form', 'url'));
+
+		$this->pub->check_login();
 
 		$this->UserAgent = $this->pub->get_UserAgent() ;
 		if( isset($this->UserAgent['O']) )

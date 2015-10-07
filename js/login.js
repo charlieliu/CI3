@@ -17,7 +17,7 @@ $(document).ready(function(){
 		else
 		{
 			$.post(
-				'login/check_login',
+				URLs,
 				{
 					"username":$('#username').val(),
 					"pwd":$('#pwd').val(),
@@ -33,7 +33,8 @@ $(document).ready(function(){
 					}
 					else
 					{
-						alert(response.status);
+						//alert(response.status);
+						window.location=IndexURLs;
 					}
 				},
 				"json"

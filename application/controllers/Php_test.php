@@ -17,6 +17,7 @@ class Php_test extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
 		ini_set("session.cookie_httponly", 1);
 		header("x-frame-options:sammeorigin");
 		header('Content-Type: text/html; charset=utf8');
@@ -28,9 +29,9 @@ class Php_test extends CI_Controller {
 		);
 
 		// load parser
-		//$this->load->library(array('parser','session', 'pub'));
 		$this->load->helper(array('form', 'url'));
-		//$this->load->model('php_test_model','',TRUE) ;
+
+		$this->pub->check_login();
 
 		$this->UserAgent = $this->pub->get_UserAgent() ;
 		if( isset($this->UserAgent['O']) )
@@ -489,49 +490,8 @@ class Php_test extends CI_Controller {
 		}
 
 		// ci_sessions
-		$ci_sessions = array(
-			'session_id' => $session_id,
-			'ip_address' => $ip_address,
-			'user_agent' => $user_agent,
-			'last_activity' => $last_activity,
-			'user_data' => $user_data,
-			'UserAgent' => $UserAgent_str,
-			'HTTP_CLIENT_IP'=>$ip_address_1,
-			'HTTP_X_FORWARDED_FOR'=>$ip_address_2_1,
-			'HTTP_X_CLIENT_IP'=>$ip_address_2_2,
-			'HTTP_X_CLUSTER_CLIENT_IP'=>$ip_address_2_3,
-			'REMOTE_ADDR'=>$ip_address_3,
-			'CI_VERSION'=>CI_VERSION,
-		);
-
-
-		// DB測試
-		// 刪除1分鐘內沒反應的 SESSION_LOGS
-		// $this->session_test_model->delete_old_session() ;
-
-		// 目前SESSION資料
-		// 呼叫 session_test_model
-		//$SESSION_LOGS = $this->get_session_info($this->session->userdata('session_id'));
-		/*
-		$SESSION_LOGS = array(
-		   'SESSION_ID'  => $session_id ,
-		   'IP_ADDRESS'  => $ip_address ,
-		   'USER_AGENT'  => $user_agent,
-		);
-
-		// 更新DB
-		//$count_num = $this->session_test_model->session_test_updata($SESSION_LOGS) ;
-
-		// SESSION_LOGS
-		if( $count_num!=false )
-		{
-			$SESSION_LOGS['count_num'] = $count_num ; // 最新資料筆數
-		}
-		else
-		{
-			$SESSION_LOGS['count_num'] = 'false' ;
-		}
-		*/
+		$ci_sessions = $this->session->userdata() ;
+		$ci_sessions['CI_VERSION'] = CI_VERSION ;
 
 		// 顯示資料
 		$content = array();
@@ -539,21 +499,31 @@ class Php_test extends CI_Controller {
 			'content_title' => 'ci_sessions',
 			'content_value' => $this->_str_replace(print_r($ci_sessions,true))
 		) ;
-		/*
+
 		$content[] = array(
-			'content_title' => 'SESSION_LOGS',
-			'content_value' => $this->_str_replace(print_r($SESSION_LOGS,true))
+			'content_title' => '$_COOKIE',
+			'content_value' => $this->_str_replace(print_r($_COOKIE,true))
 		) ;
-		*/
-	   $server_copy = $_SERVER ;
-	   $server_copy['ip_check']['HTTP_CLIENT_IP'] = !empty($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : 'error : empty' ;
-	   $server_copy['ip_check']['HTTP_X_FORWARDED_FOR'] = !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : 'error : empty' ;
-	   $server_copy['ip_check']['HTTP_X_CLIENT_IP'] = !empty($_SERVER['HTTP_X_CLIENT_IP']) ? $_SERVER['HTTP_X_CLIENT_IP'] : 'error : empty' ;
-	   $server_copy['ip_check']['HTTP_X_CLUSTER_CLIENT_IP'] = !empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) ? $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] : 'error : empty' ;
-	   $server_copy['ip_check']['REMOTE_ADDR'] = !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'error : empty' ;
+
 		$content[] = array(
-			'content_title' => '_SERVER',
-			'content_value' => $this->_str_replace(print_r($server_copy,true))
+			'content_title' => '$_SESSION',
+			'content_value' => $this->_str_replace(print_r($_SESSION,true))
+		) ;
+
+		$content[] = array(
+			'content_title' => '$_SERVER',
+			'content_value' => $this->_str_replace(print_r($_SERVER,true))
+		) ;
+
+		$ip_check = array() ;
+		$ip_check['HTTP_CLIENT_IP'] = !empty($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : 'error : empty' ;
+		$ip_check['HTTP_X_FORWARDED_FOR'] = !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : 'error : empty' ;
+		$ip_check['HTTP_X_CLIENT_IP'] = !empty($_SERVER['HTTP_X_CLIENT_IP']) ? $_SERVER['HTTP_X_CLIENT_IP'] : 'error : empty' ;
+		$ip_check['HTTP_X_CLUSTER_CLIENT_IP'] = !empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) ? $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] : 'error : empty' ;
+		$ip_check['REMOTE_ADDR'] = !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'error : empty' ;
+		$content[] = array(
+			'content_title' => '$ip_check',
+			'content_value' => $this->_str_replace(print_r($ip_check,true))
 		) ;
 
 		// 標題 內容顯示
@@ -857,59 +827,57 @@ class Php_test extends CI_Controller {
 			'content_value' => htmlspecialchars(utf8_decode($test_str)),
 		) ;
 
+		$content[] = array(
+			'content_title' => 'utf8_encode()',
+			'content_value' => htmlspecialchars(utf8_encode($test_str)),
+		) ;
+
 		$chr_str = is_numeric($test_str) ? chr($test_str) : '' ;
 		$chr_str = ($chr_str==' ') ? '&nbsp;' : $chr_str ;
 		$content[] = array(
 			'content_title' => 'chr()',
-			'content_value' => $chr_str,
+			'content_value' => htmlspecialchars($chr_str),
 		) ;
 
-		//$this->load->helper('text');
-		$ex = explode('\u', $test_str);
 		$chr_arr = array();
+		$chr_num = array() ;
+		$ex = explode('\u', $test_str);
 		foreach ($ex as $value)
 		{
-			if( $value!='' )
+			$ex2 = explode('\x', $value);
+			if( count($ex2)>1 )
 			{
-				//echo '$value = '.$value.'('.gettype($value).')<br>' ;
-				//$value = base_convert($value,16,2) ;
-				//echo 'base_convert($value,16,2) = '.$value.'('.gettype($value).')<br>' ;
-				$value = chr($value) ;
-				//echo 'chr($value) = '.$value.'('.gettype($value).')<br>' ;
-
-				//$value = ascii_to_entities($value);
-				//echo 'ascii_to_entities($value) = '.$value.'('.gettype($value).')<br>' ;
-				//$value = convert_accented_characters($value);
-				//echo 'convert_accented_characters($value) = '.$value.'('.gettype($value).')<br>' ;
-
-				//$value = utf8_decode($value) ;
-				//echo $value.'('.gettype($value).')<br>' ;
-				$value = utf8_encode($value) ;
-				//echo 'utf8_encode($value) = '.$value.'('.gettype($value).')<br>' ;
-
-				//$value = iconv('ascii', 'UTF-8', $value) ;
-				//echo 'iconv("ascii", "UTF-8", $value)  = '.$value.'('.gettype($value).')<br>' ;
-
-				$value = htmlspecialchars($value) ;
-				//echo 'htmlspecialchars($value) = '.$value.'('.gettype($value).')<br>' ;
-
-				$value = ($value==' ') ? '&nbsp;' : $value ;
+				foreach ($ex2 as $value2)
+				{
+					if( $value2!='' )
+					{
+						$chr_arr[] = $value2 ;
+						$chr_num[] = base_convert($value2,16,10) ;
+					}
+				}
+			}
+			else if( $value!='' )
+			{
 				$chr_arr[] = $value ;
+				$chr_num[] = base_convert($value,16,10) ;
 			}
 		}
-		$chr_str = implode($chr_arr) ;
-		//$chr_str = mb_convert_encoding($chr_arr, 'UTF-8') ;
+		$chr_str = $this->pub->utf8_encode_deep($chr_arr);
+		$chr_str = implode(' ',$chr_str) ;
 		$content[] = array(
 			'content_title' => 'UTF-8',
-			'content_value' => $chr_str ,
+			'content_value' => htmlspecialchars($chr_str),
 		) ;
-
-		$chr = base_convert($test_str,16,10) ;
-		$chr_str = chr($chr) ;
-		$chr_str = ($chr_str==' ') ? '&nbsp;' : $chr_str ;
+		$chr_str = '' ;
+		foreach ($chr_num as $value)
+		{
+			$chr_16 = chr($value) ;
+			$chr_16 = ($chr_16==' ') ? '&nbsp;' : $chr_16 ;
+			$chr_str .= htmlspecialchars($chr_16).'('.$value.')' ;
+		}
 		$content[] = array(
 			'content_title' => 'chr(16)',
-			'content_value' => $chr_str.'('.$chr.')',
+			'content_value' => $chr_str,
 		) ;
 
 		$content[] = array(
