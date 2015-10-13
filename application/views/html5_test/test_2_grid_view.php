@@ -18,7 +18,7 @@
             </table>
             <div class="mg1em">
                 <input type="<?=$data['type']?>" name="<?=$data['type']?>" id="<?=$data['type']?>" required>
-                <input type="hidden" name="{csrf_name}" value="{csrf_value}">
+                <input type="hidden" name="<?=$csrf_name?>" value="<?=$csrf_value?>">
                 <input type="submit" name="submit" value="Submit">
             </div>
             <div class="mg1em results"></div>

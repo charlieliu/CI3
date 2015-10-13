@@ -55,7 +55,8 @@ $(function(){
 					}
 					else
 					{
-						alert(response.status);
+						//alert(response.status);
+						window.location=IndexURLs;
 					}
 				},
 				"json"

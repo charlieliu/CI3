@@ -337,7 +337,10 @@ class Html5_test extends CI_Controller {
 						),
 					);
 					$data['test_date'] = '18Mar2015' ;
-					$data['grid_view'] = $this->parser->parse('html5_test/test_'.$in.'_grid_view', array('type_arr'=>$type_arr), true);
+					//print_r($this->_csrf);
+					$grid_view_arr = array('type_arr'=>$type_arr) ;
+					$grid_view_arr = array_merge($grid_view_arr,$this->_csrf);
+					$data['grid_view'] = $this->parser->parse('html5_test/test_'.$in.'_grid_view', $grid_view_arr, true);
 					break;
 				case '3':
 					// count 瀏覽器 版本

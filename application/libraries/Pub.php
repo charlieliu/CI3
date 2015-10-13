@@ -81,24 +81,27 @@ class Pub{
 
 	public function trim_val($in_data)
 	{
+		$output = '' ;
 		if( !empty($in_data) )
 		{
 			if( is_array($in_data) )
 			{
-				foreach ($in_data as $key=>$value) {
+				foreach ($in_data as $key=>$value)
+				{
 					$in_data[$key] = trim($value);
 				}
-				return $in_data;
+				$output = $in_data;
 			}
 			else
 			{
-				return trim($in_data);
+				$output = trim($in_data);
 			}
 		}
 		else
 		{
-			return $in_data;
+			$output = $in_data;
 		}
+		return $output ;
 	}
 
 	public function urldecode_val($in_data)
@@ -517,7 +520,8 @@ class Pub{
 		return $ary ;
 	}
 
-	public function utf8_encode_deep(&$input) {
+	public function utf8_encode_deep(&$input)
+	{
 		$output = '' ;
 		if (is_string($input)) {
 			$output = utf8_encode($input);

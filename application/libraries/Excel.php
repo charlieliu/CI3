@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /* third_party/PHPExcel.php and third_party/PHPExcel copy from https://github.com/PHPOffice/PHPExcel */
-require_once APPPATH."/third_party/PHPExcel.php";
-require_once APPPATH."/third_party/PHPExcel/IOFactory.php";
-require_once APPPATH."/third_party/PHPExcel/Cell.php";
-require_once APPPATH."/third_party/PHPExcel/Writer/Excel2007.php";
-require_once APPPATH."/third_party/PHPExcel/CachedObjectStorageFactory.php";
-require_once APPPATH."/third_party/PHPExcel/Settings.php";
+require_once "./PHPExcel/PHPExcel.php";
+require_once "./PHPExcel/PHPExcel/IOFactory.php";
+require_once "./PHPExcel/PHPExcel/Cell.php";
+require_once "./PHPExcel/PHPExcel/Writer/Excel2007.php";
+require_once "./PHPExcel/PHPExcel/CachedObjectStorageFactory.php";
+require_once "./PHPExcel/PHPExcel/Settings.php";
 
 
 class Excel extends PHPExcel {

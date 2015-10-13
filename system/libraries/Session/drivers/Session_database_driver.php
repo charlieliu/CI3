@@ -216,23 +216,23 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 				'timestamp' => time(),
 				'data' => ($this->_platform === 'postgre' ? base64_encode($session_data) : $session_data),
 			);
-			if( !empty($_SERVER['HTTP_CLIENT_IP']) )
+			if( !empty($_SERVER['HTTP_CLIENT_IP']) && preg_match('/^[^0-9\.]+$/', $_SERVER['HTTP_CLIENT_IP']) )
 			{
 				$insert_data['HTTP_CLIENT_IP'] = $_SERVER['HTTP_CLIENT_IP'] ;
 			}
-			if( !empty($_SERVER['HTTP_X_FORWARDED_FOR']) )
+			if( !empty($_SERVER['HTTP_X_FORWARDED_FOR']) && preg_match('/^[^0-9\.]+$/', $_SERVER['HTTP_X_FORWARDED_FOR']) )
 			{
 				$insert_data['HTTP_X_FORWARDED_FOR'] = $_SERVER['HTTP_X_FORWARDED_FOR'] ;
 			}
-			if( !empty($_SERVER['HTTP_X_CLIENT_IP']) )
+			if( !empty($_SERVER['HTTP_X_CLIENT_IP']) && preg_match('/^[^0-9\.]+$/', $_SERVER['HTTP_X_CLIENT_IP']) )
 			{
 				$insert_data['HTTP_X_CLIENT_IP'] = $_SERVER['HTTP_X_CLIENT_IP'] ;
 			}
-			if( !empty($insert_data['HTTP_X_CLUSTER_CLIENT_IP']) )
+			if( !empty($insert_data['HTTP_X_CLUSTER_CLIENT_IP']) && preg_match('/^[^0-9\.]+$/', $_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) )
 			{
 				$insert_data['HTTP_X_CLUSTER_CLIENT_IP'] = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ;
 			}
-			if( !empty($_SERVER['REMOTE_ADDR']) )
+			if( !empty($_SERVER['REMOTE_ADDR']) && preg_match('/^[^0-9\.]+$/', $_SERVER['REMOTE_ADDR']) )
 			{
 				$insert_data['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'] ;
 			}

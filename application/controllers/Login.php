@@ -83,52 +83,59 @@ class Login extends CI_Controller {
 		$post = $this->input->post();
 		$post = $this->pub->trim_val($post);
 		$status = '' ;
+
 		if( empty($post['username']) )
 		{
-			$status =  'name is empty';
+			$status = 201 ;
 		}
-		if( empty($post['pwd']) )
+		else if( !preg_match("/^[\x{4e00}-\x{9fa5}\w\.\-]+$/u", $post['username']) )
 		{
-			$status = 'pwd is empty' ;
+			$status = 202 ;
 		}
-		//$post['password'] = $post['pwd'];
-		$this->load->model('login_model','',TRUE);
-		$users = $this->login_model->getUsers($post['username']);
-		if( intval($users['total'])!=1 )
+		else if( empty($post['pwd']) )
 		{
-			//$status = 'users total'.intval($users['total']) ;
-			$status = 101 ;
-		}
-		else if( intval($users['total'])==1 )
-		{
-			// check pwds
-			$pwds_hash = substr(md5($users['data'][0]['salt'].$post['pwd']),0,20) ;
-			if( $pwds_hash==$users['data'][0]['password'] )
-			{
-				$updateUsers = $this->login_model->updateUsers($users['data'][0]['uid']);
-
-				$userdata = array(
-					'uid'=>$users['data'][0]['uid'],
-					'username'=>$users['data'][0]['username'],
-					'updateUsers'=>$updateUsers,
-				);
-				$this->session->set_userdata($userdata);
-
-				$status = 100;
-			}
-			else if( empty($users['data'][0]['auth_type']) )
-			{
-				$status = 102;
-			}
-			else
-			{
-				$status = 102;
-			}
+			$status = 203 ;
 		}
 		else
 		{
-			$status = 104;
+			$this->load->model('login_model','',TRUE);
+			$users = $this->login_model->getUsers($post['username']);
+			if( intval($users['total'])<1 )
+			{
+				$status = 101 ;
+			}
+			else if( intval($users['total'])==1 )
+			{
+				// check pwds
+				$pwds_hash = md5($users['data'][0]['salt'].$post['pwd']) ;
+				if( $pwds_hash!=$users['data'][0]['password'] )
+				{
+					$status = 102;
+				}
+				else if( empty($users['data'][0]['auth_type']) )
+				{
+					$status = 103;
+				}
+				else
+				{
+					$updateUsers = $this->login_model->updateUsers($users['data'][0]['uid']);
+
+					$userdata = array(
+						'uid'=>$users['data'][0]['uid'],
+						'username'=>$users['data'][0]['username'],
+						'updateUsers'=>$updateUsers,
+					);
+					$this->session->set_userdata($userdata);
+
+					$status = 100;
+				}
+			}
+			else
+			{
+				$status = 104;
+			}
 		}
+
 		if( !empty($post) )
 		{
 			$output_ary = array_merge(array('status'=>$status,),$post) ;
@@ -175,15 +182,33 @@ class Login extends CI_Controller {
 		{
 			$status = 'name is empty';
 		}
-
-		if( !preg_match("/^[\x{4e00}-\x{9fa5}\w\.\-]+$/u", $post['username']) )
+		else if( !preg_match("/^[\x{4e00}-\x{9fa5}\w\.\-]+$/u", $post['username']) )
 		{
 			$status = 'name 限用中英文數字_.-';
 		}
-
-		if( !isset($post['pwd']) )
+		else if( !isset($post['pwd']) )
 		{
 			$status = 'pwd is empty';
+		}
+		else if( empty($post['repwd']) )
+		{
+			$status = 'repwd is empty';
+		}
+		else if( $post['pwd']!=$post['repwd'] )
+		{
+			$status = 'pwd and repwd is different';
+		}
+		else if( empty($post['email']) )
+		{
+			$status = 'email is empty';
+		}
+		else if( !preg_match("/^(\w|\.|\+|\-)+@(\w|\-)+\.(\w|\.|\-)+$/", $post['email']) )
+		{
+			$status = 'email address error';
+		}
+		else if( empty($post['addr']) )
+		{
+			$status = 'address is empty';
 		}
 		else
 		{
@@ -192,59 +217,30 @@ class Login extends CI_Controller {
 			{
 				$status = '密碼強度不足';
 			}
-			/*
-			if( !preg_match("/^(\w|\-|\#)+$/", $post['pwd']) )
-			{
-				$status = '6碼英數字或符號，符號限[_][-][#]';
-			}
-			else if( $pwd_level<=2 )
-			{
-				$status = '密碼強度不足';
-			}
-			*/
-		}
-		if( empty($post['repwd']) )
-		{
-			$status = 'repwd is empty';
-		}
-		if( empty($post['email']) )
-		{
-			$status = 'email is empty';
-		}
-		if( !preg_match("/^(\w|\.|\+|\-)+@(\w|\-)+\.(\w|\.|\-)+$/", $post['email']) )
-		{
-			$status = 'email address error';
-		}
-		if( empty($post['addr']) )
-		{
-			$status = 'address is empty';
-		}
-		if( $post['pwd']!=$post['repwd'] )
-		{
-			$status = 'pwd and repwd is different';
-		}
-		if( empty($status) )
-		{
-			$this->load->model('login_model','',TRUE);
-			$content = $this->login_model->getUsers($post['username']);
-			if( $content['total']>0 )
-			{
-				$status = 'username has be used';
-			}
 			else
 			{
-				//$salt = rand(101,999);
-				$salt = $this->password_strength->get_salt() ;
-				$data = array(
-					'username'=>$post['username'],
-					'salt'=>$salt,
-					'password'=>md5($salt.$post['pwd']),
-					'email'=>$post['email'],
-					'addr'=>$post['addr'],
-				);
-				$status = $this->login_model->insUsers($data);
+				$this->load->model('login_model','',TRUE);
+				$content = $this->login_model->getUsers($post['username']);
+				if( $content['total']>0 )
+				{
+					$status = 'username has be used';
+				}
+				else
+				{
+					//$salt = rand(101,999);
+					$salt = $this->password_strength->get_salt() ;
+					$data = array(
+						'username'=>$post['username'],
+						'salt'=>$salt,
+						'password'=>md5($salt.$post['pwd']),
+						'email'=>$post['email'],
+						'addr'=>$post['addr'],
+					);
+					$status = $this->login_model->insUsers($data);
+				}
 			}
 		}
+
 		if( !empty($post) )
 		{
 			$output_ary = array_merge(array('status'=>$status,),$post) ;
@@ -276,7 +272,6 @@ class Login extends CI_Controller {
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		//print_r($_SESSION) ;
 		header('Location: '.base_url()) ;
 	}
 }
