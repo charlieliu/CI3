@@ -127,7 +127,14 @@ class Login extends CI_Controller {
 					);
 					$this->session->set_userdata($userdata);
 
-					$status = 100;
+					if( isset($_COOKIE['ci_session']) )
+					{
+						$status = 200;
+					}
+					else
+					{
+						$status = 100;
+					}
 				}
 			}
 			else

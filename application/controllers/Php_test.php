@@ -456,39 +456,6 @@ class Php_test extends CI_Controller {
 
 	public function session_test()
 	{
-		//$this->check_session();
-		/*
-		// 增加自訂Session資料
-		$newdata = array(
-			'username'  => 'johndoe',
-			'email'  => 'johndoe@some-site.com',
-			'logged_in' => TRUE
-		);
-		$this->session->set_userdata($newdata);
-		*/
-
-		// 取得預設SESSION資料
-		$session_id = $this->session->userdata('session_id') ; // CI session ID
-		$ip_address = $this->session->userdata('ip_address') ; // 使用者IP位置
-		$user_agent = $this->session->userdata('user_agent') ; // 使用者瀏覽器類型
-		$last_activity = $this->session->userdata('last_activity') ; // 最後變動時間
-		$user_data = $this->session->userdata('user_data') ;// 自訂資料
-		$ip_address_1 = $this->session->userdata('HTTP_CLIENT_IP') ;// 自訂資料
-		$ip_address_2_1 = $this->session->userdata('HTTP_X_FORWARDED_FOR') ;// 自訂資料
-		$ip_address_2_2 = $this->session->userdata('HTTP_X_CLIENT_IP') ;// 自訂資料
-		$ip_address_2_3 = $this->session->userdata('HTTP_X_CLUSTER_CLIENT_IP') ;// 自訂資料
-		$ip_address_3 = $this->session->userdata('REMOTE_ADDR') ;// 自訂資料
-		//$user_data = $this->_str_replace(print_r($user_data,true)) ;
-		//$user_data = $this->session->all_userdata() ;
-		if( !empty($this->UserAgent['M']) || !empty($this->UserAgent['S']) || !empty($this->UserAgent['A']) || !empty($this->UserAgent['AN']) )
-		{
-			$UserAgent_str = '('.$this->UserAgent['M'].'/'.$this->UserAgent['S'].')'.$this->UserAgent['A'].' : '.$this->UserAgent['AN'] ;
-		}
-		else
-		{
-			$UserAgent_str = '' ;
-		}
-
 		// ci_sessions
 		$ci_sessions = $this->session->userdata() ;
 		$ci_sessions['CI_VERSION'] = CI_VERSION ;
@@ -496,20 +463,21 @@ class Php_test extends CI_Controller {
 		// 顯示資料
 		$content = array();
 		$content[] = array(
+			'content_title' => 'csrf token',
+			'content_value' => $this->_str_replace(print_r($this->_csrf,true))
+		) ;
+		$content[] = array(
 			'content_title' => 'ci_sessions',
 			'content_value' => $this->_str_replace(print_r($ci_sessions,true))
 		) ;
-
 		$content[] = array(
 			'content_title' => '$_COOKIE',
 			'content_value' => $this->_str_replace(print_r($_COOKIE,true))
 		) ;
-
 		$content[] = array(
 			'content_title' => '$_SESSION',
 			'content_value' => $this->_str_replace(print_r($_SESSION,true))
 		) ;
-
 		$content[] = array(
 			'content_title' => '$_SERVER',
 			'content_value' => $this->_str_replace(print_r($_SERVER,true))
