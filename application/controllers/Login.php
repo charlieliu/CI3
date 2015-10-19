@@ -129,11 +129,11 @@ class Login extends CI_Controller {
 
 					if( isset($_COOKIE['ci_session']) )
 					{
-						$status = 200;
+						$status = 100;
 					}
 					else
 					{
-						$status = 100;
+						$status = 200;
 					}
 				}
 			}
