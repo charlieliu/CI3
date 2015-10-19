@@ -131,14 +131,11 @@ class Welcome extends CI_Controller {
 			'content_url' => base_url().'hash_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
 			'c'=>'',
 		) ;
-		if( base_url()=='http://localhost/' )
-		{
-			$content[] = array(
-				'content_title' => 'phpinfo',
-				'content_url' => base_url().'welcome/phpinfo',
-				'c'=>'',
-			) ;
-		}
+		$content[] = array(
+			'content_title' => 'phpinfo',
+			'content_url' => base_url().'phpinfo.php',
+			'c'=>'',
+		) ;
 
 		$this->page_list = $content ;
 	}
