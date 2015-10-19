@@ -230,8 +230,8 @@ class Predis_test extends CI_Controller {
 
 	public function do_redis()
 	{
-		//$this->load->library('xhprof') ;
-		//$this->xhprof->XHProf_Start() ;
+		$this->load->library('xhprof') ;
+		$this->xhprof->XHProf_Start() ;
 		// Predis start
 		$this->benchmark->mark('total_time_start');
 		$this->redis = new Predis\Client() ;
@@ -878,7 +878,7 @@ class Predis_test extends CI_Controller {
 		$this->benchmark->mark('total_time_end');
 		$time['total_time'] = $this->benchmark->elapsed_time('total_time_start','total_time_end');
 		$this->_redis_log = print_r($time, TRUE) ;
-		//$run_id = $this->xhprof->XHProf_End('redis',('Predis_'.$input['redis_act']) ) ;
+		$run_id = $this->xhprof->XHProf_End('redis',('Predis_'.$input['redis_act']) ) ;
 
 		$output = array(
 			'result'=>$result,
@@ -886,8 +886,8 @@ class Predis_test extends CI_Controller {
 			'post'=>$post,
 			'input'=>$input,
 			'redis_log'=>$this->_redis_log,
-			//'run_id'=>$run_id,
-			//'xhprof_dif'=>$this->query_xhprof_log($input['redis_act']),
+			'run_id'=>$run_id,
+			'xhprof_dif'=>$this->query_xhprof_log($input['redis_act']),
 		);
 		echo json_encode($output) ;
 	}
@@ -906,7 +906,7 @@ class Predis_test extends CI_Controller {
 			{
 				foreach ($predis_query['data'] as $predis_row)
 				{
-					$xhprof_dif[] = base_url().'xhprof/xhprof_html/index.php?XDEBUG_SESSION_START=sublime.xdebug&run1='.$redis_row['run_id'].'&run2='.$predis_row['run_id'].'&source=redis<br>' ;
+					$xhprof_dif[] = base_url().'xhprof/xhprof_html/index.php?XDEBUG_SESSION_START=sublime.xdebug&run1='.$redis_row['run_id'].'&run2='.$predis_row['run_id'].'&source=redis&run_val=redis_predis<br>' ;
 				}
 			}
 		}
@@ -914,14 +914,14 @@ class Predis_test extends CI_Controller {
 		{
 			foreach ($predis_query['data'] as  $predis_row)
 			{
-				$xhprof_dif[] = base_url().'xhprof/xhprof_html/index.php?XDEBUG_SESSION_START=sublime.xdebug&run='.$predis_row['run_id'].'&source=redis<br>' ;
+				$xhprof_dif[] = base_url().'xhprof/xhprof_html/index.php?XDEBUG_SESSION_START=sublime.xdebug&run='.$predis_row['run_id'].'&source=redis&run_val=predis<br>' ;
 			}
 		}
 		else if( $redis_query['total']>0 )
 		{
 			foreach ($redis_query['data'] as  $redis_row)
 			{
-				$xhprof_dif[] = base_url().'xhprof/xhprof_html/index.php?XDEBUG_SESSION_START=sublime.xdebug&run='.$redis_row['run_id'].'&source=redis<br>' ;
+				$xhprof_dif[] = base_url().'xhprof/xhprof_html/index.php?XDEBUG_SESSION_START=sublime.xdebug&run='.$redis_row['run_id'].'&source=redis&run_val=redis<br>' ;
 			}
 		}
 		return $xhprof_dif ;

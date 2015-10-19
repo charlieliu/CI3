@@ -4,7 +4,7 @@
  */
 class Xhprof {
 	private $_ci;
-	private $XHProfPath = 'xhprof/';
+	private $XHProfPath = './xhprof/';
 	private $applicationName = 'my_application';
 	private $sampleSize = 1;
 	private static $enabled = false;
