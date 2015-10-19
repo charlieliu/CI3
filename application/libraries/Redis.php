@@ -13,7 +13,7 @@
 * @license	http://www.opensource.org/licenses/mit-license.html
 * @editer	liuchangli0107@gmail.com
 */
-class CI_Redis {
+class Redis {
 
 	/**
 	* CI

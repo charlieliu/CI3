@@ -109,11 +109,13 @@ class Welcome extends CI_Controller {
 			'content_url' => base_url().'html5_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
 			'c'=>'html5_test',
 		) ;
+		/*
 		$content[] = array(
 			'content_title' => 'Login 測試',
 			'content_url' => base_url().'login'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
 			'c'=>'login',
 		) ;
+		*/
 		$content[] = array(
 			'content_title' => 'Predis 測試',
 			'content_url' => base_url().'predis_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),

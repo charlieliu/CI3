@@ -2,7 +2,7 @@
 /*
 * @author liuchangli0107@gmail.com
  */
-class CI_Xhprof {
+class Xhprof {
 	private $_ci;
 	private $XHProfPath = 'xhprof/';
 	private $applicationName = 'my_application';
