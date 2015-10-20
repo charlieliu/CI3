@@ -7,8 +7,11 @@ class Hash_test extends CI_Controller {
 	private $current_title = '動態 Hash 測試';
 	private $page_list = '';
 	private $_csrf = null ;
-	private $_md5_key = array() ;
-	private $_md5_val = array() ;
+	private $_md5_key2val = array() ;
+	private $_md5_key2hash = array() ;
+	private $_md5_hash2key = array() ;
+	private $_md5_hash2val = array() ;
+	private $_md5_val2hash = array() ;
 
 	public $UserAgent = array() ;
 
@@ -59,15 +62,12 @@ class Hash_test extends CI_Controller {
 			'current_title' => $this->current_title,
 			'current_page' => strtolower(__CLASS__), // 當下類別
 			'current_fun' => strtolower(__FUNCTION__), // 當下function
-			'base_url' => base_url(),
-			'version' => date('YmdHis'),
 		);
 		$data = array_merge($data, $this->_csrf) ;
-		$data = array_merge($data, $this->_md5_key) ;
 
 		// Template parser class
 		// 中間挖掉的部分
-		$data['content_div'] = $this->parser->parse('hash_test/hash_test_view', $data, true);
+		$data['content_div'] = $this->_get_view($data);
 
 		// 中間部分塞入外框
 		//$html_date['js'][] = 'js/hash_test/hash_test.js';
@@ -80,15 +80,20 @@ class Hash_test extends CI_Controller {
 		$post = $this->input->post() ;
 		if( !empty($post) )
 		{
-			$output = array('status'=>'101') ;
+			$output = array() ;
+			$output['status'] = '100' ;
 			foreach ($post as $key => $value)
 			{
-				if( isset($this->_md5_val[$key]) )
+				if( isset($this->_md5_hash2key[$key]) && isset($this->_md5_hash2val[$value]) )
 				{
-					$key = $this->_md5_val[$key] ;
-					$output['status'] = '100' ;
-					$output[$key] = $value ;
+					$key = $this->_md5_hash2key[$key] ;
+					$value = $this->_md5_hash2val[$value] ;
 				}
+				else
+				{
+					$output['status'] = '101' ;
+				}
+				$output[$key] = $value ;
 			}
 		}
 		else
@@ -108,11 +113,11 @@ class Hash_test extends CI_Controller {
 	{
 		header('content-type: application/javascript') ;
 		echo '$(document).ready(function(){$("#btn_submit").click(function(){$("#btn_show").hide();$("#btn_disp").show();$.post(URLs,{' ;
-		if( !empty($this->_md5_key) )
+		if( !empty($this->_md5_key2hash) )
 		{
-			foreach ($this->_md5_key as $key => $value)
+			foreach ($this->_md5_key2hash as $key => $hash)
 			{
-				echo '"'.$value.'" : $("#'.$value.'").val(),' ;
+				echo '"'.$hash.'" : $("#'.$hash.'").val(),' ;
 			}
 		}
 		echo '"csrf_test_name" : $("#csrf_test_name").val()' ;
@@ -123,9 +128,29 @@ class Hash_test extends CI_Controller {
 
 	private function _add_md5_list($key='', $value='',$head='T')
 	{
-		$hash_val = $head.substr(md5( $value.$this->session->userdata('session_id') ), 0 , 11) ;
-		$this->_md5_key[$key] = $hash_val ;
-		$this->_md5_val[$hash_val] = $value ;
+		$hash_key = $head.substr(md5( $key.$this->security->get_csrf_hash() ), 0 , 11) ;
+		$hash_val = $head.substr(md5( $value.$this->security->get_csrf_hash() ), 0 , 11) ;
+		$this->_md5_key2val[$key] = $hash_val ;
+		$this->_md5_key2hash[$key] = $hash_key ;
+		$this->_md5_hash2key[$hash_key] = $key ;
+		$this->_md5_hash2val[$hash_val] = $value ;
+		$this->_md5_val2hash[$value] = $hash_val ;
+	}
+
+	private function _get_view($data)
+	{
+		$view = '<div id="body">' ;
+		$view .= '<p>'.$data['current_page'].'/'.$data['current_fun'].'</p><form method="POST">' ;
+		$view .= '<input type="text" id="'.$this->_md5_key2hash['hash_str'].'" value="'.$this->_md5_key2val['hash_str'].'">' ;
+		$view .= '<input type="hidden" id="'.$data['csrf_name'].'" name="'.$data['csrf_name'].'" value="'.$data['csrf_value'].'">' ;
+		$view .= '<input type="hidden" id="'.$this->_md5_key2hash['hidden_text'].'" value="'.$this->_md5_key2val['hidden_text'].'">' ;
+		$view .= '<span id="btn_show"><input type="button" id="btn_submit" value="查詢"></span>' ;
+		$view .= '<span id="btn_disp" style="display:none;">查詢.....</span>' ;
+		$view .= '</form>' ;
+		$view .= '<script type="text/javascript" src="'.base_url().'hash_test/get_url?v='.uniqid().'"></script>' ;
+		$view .= '<script type="text/javascript" src="'.base_url().'hash_test/get_js?v='.uniqid().'"></script>' ;
+		$view .= '</div>' ;
+		return $view ;
 	}
 }
 ?>
