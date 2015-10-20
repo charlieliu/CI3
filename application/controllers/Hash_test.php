@@ -9,9 +9,9 @@ class Hash_test extends CI_Controller {
 	private $_csrf = null ;
 	private $_md5_key2val = array() ;
 	private $_md5_key2hash = array() ;
+	private $_md5_val2hash = array() ;
 	private $_md5_hash2key = array() ;
 	private $_md5_hash2val = array() ;
-	private $_md5_val2hash = array() ;
 
 	public $UserAgent = array() ;
 
@@ -44,7 +44,7 @@ class Hash_test extends CI_Controller {
 		}
 
 		$this->_add_md5_list('hash_str','is_active') ;
-		$this->_add_md5_list('hidden_text','is_owner','H') ;
+		$this->_add_md5_list('hidden_text','is_owner') ;
 	}
 
 	// 取得標題
@@ -63,7 +63,6 @@ class Hash_test extends CI_Controller {
 			'current_page' => strtolower(__CLASS__), // 當下類別
 			'current_fun' => strtolower(__FUNCTION__), // 當下function
 		);
-		$data = array_merge($data, $this->_csrf) ;
 
 		// Template parser class
 		// 中間挖掉的部分
@@ -120,21 +119,21 @@ class Hash_test extends CI_Controller {
 				echo '"'.$hash.'" : $("#'.$hash.'").val(),' ;
 			}
 		}
-		echo '"csrf_test_name" : $("#csrf_test_name").val()' ;
+		echo '"'.$this->security->get_csrf_token_name().'" : $("#'.$this->security->get_csrf_token_name().'").val()' ;
 		echo '},function(response){' ;
 		echo 'alert(response.status);if(response.status="100"){$("#btn_show").show();$("#btn_disp").hide();}else{location.reload();};' ;
 		echo '},"json");});});';
 	}
 
-	private function _add_md5_list($key='', $value='',$head='T')
+	private function _add_md5_list($key='', $value='')
 	{
-		$hash_key = $head.substr(md5( $key.$this->security->get_csrf_hash() ), 0 , 11) ;
-		$hash_val = $head.substr(md5( $value.$this->security->get_csrf_hash() ), 0 , 11) ;
+		$hash_key = 'K'.substr(md5( $key.$this->security->get_csrf_hash() ), 0 , 11) ;
+		$hash_val = 'V'.substr(md5( $value.$this->security->get_csrf_hash() ), 0 , 11) ;
 		$this->_md5_key2val[$key] = $hash_val ;
 		$this->_md5_key2hash[$key] = $hash_key ;
+		$this->_md5_val2hash[$value] = $hash_val ;
 		$this->_md5_hash2key[$hash_key] = $key ;
 		$this->_md5_hash2val[$hash_val] = $value ;
-		$this->_md5_val2hash[$value] = $hash_val ;
 	}
 
 	private function _get_view($data)
@@ -142,8 +141,8 @@ class Hash_test extends CI_Controller {
 		$view = '<div id="body">' ;
 		$view .= '<p>'.$data['current_page'].'/'.$data['current_fun'].'</p><form method="POST">' ;
 		$view .= '<input type="text" id="'.$this->_md5_key2hash['hash_str'].'" value="'.$this->_md5_key2val['hash_str'].'">' ;
-		$view .= '<input type="hidden" id="'.$data['csrf_name'].'" name="'.$data['csrf_name'].'" value="'.$data['csrf_value'].'">' ;
-		$view .= '<input type="hidden" id="'.$this->_md5_key2hash['hidden_text'].'" value="'.$this->_md5_key2val['hidden_text'].'">' ;
+		$view .= '<input type="text" id="'.$this->_md5_key2hash['hidden_text'].'" value="'.$this->_md5_key2val['hidden_text'].'">' ;
+		$view .= '<input type="hidden" id="'.$this->security->get_csrf_token_name().'" value="'.$this->security->get_csrf_hash().'">' ;
 		$view .= '<span id="btn_show"><input type="button" id="btn_submit" value="查詢"></span>' ;
 		$view .= '<span id="btn_disp" style="display:none;">查詢.....</span>' ;
 		$view .= '</form>' ;

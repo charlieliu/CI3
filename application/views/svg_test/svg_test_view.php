@@ -1,7 +1,7 @@
 <div id="body">
 
     <div>
-        <p>矩形 rect</p>
+        <p>矩形 rect x="5" y="5" width="50" height="50"</p>
         <ul>
             <li>x = X 座標</li>
             <li>y = Y 座標</li>
@@ -14,7 +14,7 @@
     </div>
 
     <div>
-        <p>圓形 circle</p>
+        <p>圓形 circle cx="42" cy="42" r="40" stroke="black" stroke-width="2" fill="red"</p>
         <ul>
             <li>中心點預設(0, 0)</li>
             <li>cx = X 座標</li>
@@ -22,12 +22,12 @@
             <li>r = 半徑</li>
         </ul>
         <svg width="100%" height="84" version="1.1">
-            <circle cx="42" cy="42" r="40" stroke="black" stroke-width="2" fill="red"/>
+            <circle cx="42" cy="42" r="40" stroke="black" stroke-width="2" fill="red">
         </svg>
     </div>
 
     <div>
-        <p>橢圓 ellipse</p>
+        <p>橢圓 ellipse cx="102" cy="42" rx="100" ry="40"</p>
         <ul>
             <li>cx = X 座標</li>
             <li>cy = Y 座標</li>
@@ -35,12 +35,12 @@
             <li>ry = Y 半徑</li>
         </ul>
         <svg width="100%" height="84" version="1.1">
-            <ellipse cx="102" cy="42" rx="100" ry="40" style="fill:rgb(200,100,50);stroke:rgb(0,0,100);stroke-width:2"/>
+            <ellipse cx="102" cy="42" rx="100" ry="40" style="fill:rgb(200,100,50);stroke:rgb(0,0,100);stroke-width:2">
         </svg>
     </div>
 
     <div>
-        <p>線條 line</p>
+        <p>線條 line x1="0" y1="0" x2="100" y2="50"</p>
         <ul>
             <li>x1 = x 軸開始</li>
             <li>y1 = y 軸開始</li>
@@ -53,7 +53,7 @@
     </div>
 
     <div>
-        <p>多邊形 polygon</p>
+        <p>多邊形 polygon points="0,0 0,20 40,20 20,40 40,40 40,60"</p>
         <ul>
             <li>points 定義每個點座標x,y</li>
         <ul>
@@ -64,7 +64,7 @@
     </div>
 
     <div>
-        <p>折線 polyline</p>
+        <p>折線 polyline points="0,0 0,20 40,20 20,40 40,40 40,60"</p>
         <ul>
             <li>points 定義每個點座標x,y</li>
         <ul>
@@ -75,7 +75,7 @@
     </div>
 
     <div>
-        <p>路徑 path</p>
+        <p>路徑 path"M44 62 C44 62 42 62 42 62 ......"</p>
         <ul>
             <li>M = moveto</li>
             <li>L = lineto</li>
