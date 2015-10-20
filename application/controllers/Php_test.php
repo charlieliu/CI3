@@ -461,26 +461,40 @@ class Php_test extends CI_Controller {
 		$ci_sessions['CI_VERSION'] = CI_VERSION ;
 
 		// 顯示資料
-		$content = array();
+		$content = array() ;
+
 		$content[] = array(
 			'content_title' => 'csrf token',
 			'content_value' => $this->_str_replace(print_r($this->_csrf,true))
 		) ;
+
 		$content[] = array(
 			'content_title' => 'ci_sessions',
 			'content_value' => $this->_str_replace(print_r($ci_sessions,true))
 		) ;
+
+		$_cookies = array() ;
+		foreach ($_COOKIE as $key => $value)
+		{
+			$_cookies[htmlspecialchars($key)] = htmlspecialchars($value) ;
+		}
 		$content[] = array(
 			'content_title' => '$_COOKIE',
-			'content_value' => $this->_str_replace(print_r($_COOKIE,true))
+			'content_value' => $this->_str_replace(print_r($_cookies,true))
 		) ;
+
 		$content[] = array(
 			'content_title' => '$_SESSION',
 			'content_value' => $this->_str_replace(print_r($_SESSION,true))
 		) ;
+
+		$_servers = array() ;
+		foreach ($_SERVER as $key => $value) {
+			$_servers[htmlspecialchars($key)] = htmlspecialchars($value) ;
+		}
 		$content[] = array(
 			'content_title' => '$_SERVER',
-			'content_value' => $this->_str_replace(print_r($_SERVER,true))
+			'content_value' => $this->_str_replace(print_r($_servers,true))
 		) ;
 
 		$ip_check = array() ;
@@ -489,6 +503,9 @@ class Php_test extends CI_Controller {
 		$ip_check['HTTP_X_CLIENT_IP'] = !empty($_SERVER['HTTP_X_CLIENT_IP']) ? $_SERVER['HTTP_X_CLIENT_IP'] : 'error : empty' ;
 		$ip_check['HTTP_X_CLUSTER_CLIENT_IP'] = !empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) ? $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] : 'error : empty' ;
 		$ip_check['REMOTE_ADDR'] = !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'error : empty' ;
+		foreach ($ip_check as $key => $value) {
+			$ip_check[$key] = htmlspecialchars($value) ;
+		}
 		$content[] = array(
 			'content_title' => '$ip_check',
 			'content_value' => $this->_str_replace(print_r($ip_check,true))
