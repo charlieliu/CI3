@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8"><!--HTML5-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -154,6 +154,6 @@
         <?PHP if( $current_page=='session_test'): ?><div>COOKIE :<?PHP print_r($_COOKIE); ?></div><?PHP endif; ?>
     </div>
 
-    <div id="gotop">˄</div>
+    <img id="gotop" src="<?=base_url()?>css/images/icons-svg/arrow-u-black.svg">
 </body>
 </html>

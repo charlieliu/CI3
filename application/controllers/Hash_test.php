@@ -151,5 +151,68 @@ class Hash_test extends CI_Controller {
 		$view .= '</div>' ;
 		return $view ;
 	}
+
+	public function random_pwds($length=16, $seed_type='default')
+	{
+		$content = array() ;
+		for ($i=0; $i <100 ; $i++)
+		{
+			$content[] = $this->_generateRandomString($length,$seed_type) ;
+		}
+
+		// 標題 內容顯示
+		$data = array(
+			'title' => 'make pwds 測試('.htmlspecialchars($length).'/'.htmlspecialchars($seed_type).')',
+			'current_title' => $this->current_title,
+			'current_page' => strtolower(__CLASS__), // 當下類別
+			'current_fun' => strtolower(__FUNCTION__), // 當下function
+		);
+
+		// Template parser class
+		// 中間挖掉的部分
+		$content_div = '<div id="body"><p>'.strtolower(__CLASS__).'/'.strtolower(__FUNCTION__).'</p><table>';
+		foreach ($content as $key => $value)
+		{
+			$content_div .= '<tr class="content_block"><td>'.$key.'</td><td>'.htmlspecialchars($value).'</td></tr>';
+		}
+		$content_div .= '</table></div>';
+
+		// 中間部分塞入外框
+		$html_date = $data ;
+		$html_date['content_div'] = $content_div ;
+
+		$view = $this->parser->parse('index_view', $html_date, true);
+		$this->pub->remove_view_space($view);
+	}
+
+	private function _generateRandomString($length=16, $seed_type='')
+	{
+		// lib
+		switch ($seed_type)
+		{
+			case 'alpha':
+				$characters = 'qwertyuiopasdfghjklzxcvbnm' ;
+				break;
+			case 'ALPHA':
+				$characters = 'QWERTYUIOPASDFGHJKLZXCVBNM' ;
+				break;
+			case 'numbers':
+				$characters = '1234567890' ;
+				break;
+			case 'keyboard':
+				$characters = '~!@#$%^&*()_+`1234567890-=QWERTYUIOP{}|qwertyuiop[]\ASDFGHJKL:"asdfghjkl;'."'".'ZXCVBNM<>?zxcvbnm,./';
+				break;
+			default:
+				$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#&_';
+				break;
+		};
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++)
+		{
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
 }
 ?>

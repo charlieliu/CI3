@@ -151,13 +151,13 @@ Safari 和 Chrome 支持替代的 @-webkit-keyframes 规则。
 table td, table th {padding:.5em;}
 
 #gotop {
+    width: 24px;
+    height: 24px;
+    padding: 5px;
     display: none;
     position: fixed;
     right: 20px;
-    bottom: 20px;
-    padding: 10px 15px;
-    font-size: 20px;
-    background: #777;
+    bottom: 20px;background: #777;
     color: white;
     cursor: pointer;
 }

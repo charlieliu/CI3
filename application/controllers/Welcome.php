@@ -41,6 +41,8 @@ class Welcome extends CI_Controller {
 
 		$view = $this->parser->parse('index_view', $html_date, true);
 		$this->pub->remove_view_space($view);
+
+		//var_dump($this);
 	}
 
 	public $current_title = '首頁';
