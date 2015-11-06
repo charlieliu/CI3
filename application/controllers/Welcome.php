@@ -38,6 +38,7 @@ class Welcome extends CI_Controller {
 		// 中間部分塞入外框
 		$html_date = $data ;
 		$html_date['content_div'] = $content_div ;
+		$html_date['js'][] = 'js/free_drink.js';
 
 		$view = $this->parser->parse('index_view', $html_date, true);
 		$this->pub->remove_view_space($view);
