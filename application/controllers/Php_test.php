@@ -305,10 +305,10 @@ class Php_test extends CI_Controller {
 		foreach( $test_i as $k=>$v )
 		{
 			$part_str = '<table border=1>';
-			$part_str .= '<tr><th>type</th><th>a</th><th>b</th><th>bcadd(a,b)</th></tr>';
-			$part_str .= '<tr><td>(string)</td><td>'.(string)$v['a'].'</td><td>'.(string)$v['b'].' </td><td>'.bcadd((string)$v['a'], (string)$v['b'], 15).'</td></tr>';
-			$part_str .= '<tr><td>(float)</td><td>'.(float)$v['a'].'</td><td>'.(float)$v['b'].' </td><td>'.bcadd((float)$v['a'], (float)$v['b'], 15).'</td></tr>';
-			$part_str .= '<tr><td>(int)</td><td>'.(int)$v['a'].'</td><td>'.(int)$v['b'].' </td><td>'.bcadd((int)$v['a'], (int)$v['b'], 15).'</td></tr>';
+			$part_str .= '<tr><th>type</th><th>a</th><th>b</th><th>bcadd(a,b)</th><th>a+b</th></tr>';
+			$part_str .= '<tr><td>(string)</td><td>'.(string)$v['a'].'</td><td>'.(string)$v['b'].' </td><td>'.bcadd((string)$v['a'], (string)$v['b'], 15).'</td><td>'.((string)$v['a']+(string)$v['b']).'</td></tr>';
+			$part_str .= '<tr><td>(float)</td><td>'.(float)$v['a'].'</td><td>'.(float)$v['b'].' </td><td>'.bcadd((float)$v['a'], (float)$v['b'], 15).'</td><td>'.((float)$v['a']+(float)$v['b']).'</td></tr>';
+			$part_str .= '<tr><td>(int)</td><td>'.(int)$v['a'].'</td><td>'.(int)$v['b'].' </td><td>'.bcadd((int)$v['a'], (int)$v['b'], 15).'</td><td>'.((int)$v['a']+(int)$v['b']).'</td></tr>';
 			$part_str .= '</table><br>';
 			$content[] = array(
 				'content_title' => 'Part '.($k+1),
