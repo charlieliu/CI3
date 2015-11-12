@@ -1,16 +1,20 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * SESSION MODEL
- *
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
-class Login_model extends Base_model {
+require_once 'Base_Model.php' ;
+
+class Login_model extends Base_model
+{
 	public function getUsers($input='')
 	{
 		if( !empty($input) )
 		{
-			$sql = "SELECT * FROM user  WHERE `username`='".$input."'";
-			$query = $this->db->query($sql);
+			//$sql = "SELECT * FROM user  WHERE `username`='".$input."'";
+			//$query = $this->db->query($sql);
+			$sql = 'SELECT * FROM user  WHERE `username`=? ;' ;
+			$input = array($input);
+			$query = $this->db->query($sql,$input);
 			return array('data'=>$query->result_array(),'total'=>$query->num_rows());
 		}
 		else
@@ -50,7 +54,10 @@ class Login_model extends Base_model {
 				'login_date'=>'',
 				'addr'=>$input['addr'],
 			);
-			if( $this->db->insert('user', $data) )
+			$this->db->trans_start() ;
+			$result = $this->db->insert('user', $data) ;
+			$this->db->trans_complete() ;
+			if( $result )
 			{
 				return 100;
 			}
@@ -77,7 +84,9 @@ class Login_model extends Base_model {
 				$this->db->set('login_id', $_COOKIE['ci_session']);// 強制CI不處理
 			}
 			$this->db->where('uid', $input);
+			$this->db->trans_start();
 			$result = $this->db->update('user');// CI 更新用法
+			$this->db->trans_complete();
 			if( $result )
 			{
 				return 100;

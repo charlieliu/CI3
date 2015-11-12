@@ -1,10 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * SESSION MODEL
- *
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
-class Php_test_model extends Base_model {
+require_once 'Base_Model.php' ;
+
+class Php_test_model extends Base_Model
+{
 	public function query_hash_test($hash_key='',$page=1,$limit=20,$is_add=true)
 	{
 		$limit = intval($limit);
@@ -98,7 +99,9 @@ class Php_test_model extends Base_model {
 				'sha256_var'=>hash('sha256',$hash_key),
 				'sha512_var'=>hash('sha512',$hash_key),
 			);
+			$this->db->trans_start();
 			$result = $this->db->insert('hash_test', $input);
+			$this->db->trans_complete();
 			if($result)
 			{
 				$status = 100 ;
@@ -193,7 +196,9 @@ class Php_test_model extends Base_model {
 				'agent_type'=>( isset($agent['M']) ? $agent['M'] : '' ),
 				'agent_system'=>( isset($agent['S']) ? $agent['S'] : '' ),
 			);
+			$this->db->trans_start();
 			$result = $this->db->insert('user_agent', $input);
+			$this->db->trans_complete();
 			if($result)
 			{
 				$status = 100 ;
@@ -215,7 +220,9 @@ class Php_test_model extends Base_model {
 	{
 		$this->db->where('UA_id', $mod_arr['UA_id']);
 		// CI 更新用法
+		$this->db->trans_start();
 		$result = $this->db->update('user_agent',$mod_arr);
+		$this->db->trans_complete();
 	}
 }
 ?>

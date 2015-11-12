@@ -1,10 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * SESSION MODEL
- *
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
-class Xhprof_model extends Base_model {
+require_once 'Base_Model.php' ;
+
+class Xhprof_model extends Base_model
+{
 	public function query_log($run_id='', $set_name='',$remark_str='',$page=1,$limit=20,$is_add=TRUE)
 	{
 		$limit = intval($limit);
@@ -87,7 +88,9 @@ class Xhprof_model extends Base_model {
 		$file_name = '/var/log/xhprof/'.$run_id.'.'.$set_name.'.xhprof' ;
 		if( file_exists($file_name) )
 		{
+			$this->db->trans_start();
 			$result = $this->db->insert('xhprof_log', $input);
+			$this->db->trans_complete();
 			if($result)
 			{
 				$status = 100 ;

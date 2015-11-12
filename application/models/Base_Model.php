@@ -1,10 +1,10 @@
 <?php
-set_time_limit ( 604800 );
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
-class Base_model extends CI_Model {
+class Base_Model extends CI_Model
+{
 	// 建構子
 	function __construct()
 	{
@@ -13,7 +13,7 @@ class Base_model extends CI_Model {
 		$this->load->database();
 	}
 	// 解構子
-	function __construct()
+	function __destruct()
 	{
 		$this->db->close();
 	}

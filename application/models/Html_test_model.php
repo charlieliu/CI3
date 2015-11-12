@@ -1,10 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * SESSION MODEL
- *
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
-class Html_test_model extends Base_model {
+require_once 'Base_Model.php' ;
+
+class Html_test_model extends Base_model
+{
 	public function query_browsers($str='',$version='')
 	{
 		if( empty($str) )

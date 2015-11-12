@@ -2,11 +2,12 @@
 set_time_limit ( 604800 );
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * SESSION MODEL
- *
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
-class Add_hash_lib_model extends Base_model {
+require_once 'Base_Model.php' ;
+
+class Add_hash_lib_model extends Base_model
+{
 	public function query_hash_test($hash_key='',$page=1,$limit=20,$is_add=true)
 	{
 		$limit = intval($limit);
