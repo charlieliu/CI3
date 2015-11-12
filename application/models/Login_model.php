@@ -4,7 +4,7 @@
  *
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
-class Login_model extends CI_Model {
+class Login_model extends Base_model {
 	public function getUsers($input='')
 	{
 		if( !empty($input) )
