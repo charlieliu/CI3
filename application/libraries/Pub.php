@@ -552,7 +552,8 @@ class Pub{
 		if( !isset($_SESSION['uid']) || empty($_SESSION['username']) )
 		{
 			//exit(base_url().'login');
-			header('Location: '.base_url().'login') ;
+			//header('Location: '.base_url().'login') ;
+			redirect(base_url('login'));
 			exit(base_url().'login');
 		}
 		else

@@ -4,15 +4,7 @@
  *
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
-class Html_test_model extends CI_Model {
-
-	function __construct()
-	{
-		// 呼叫模型(Model)的建構函數
-		parent::__construct();
-		$this->load->database();
-	}
-
+class Html_test_model extends Base_model {
 	public function query_browsers($str='',$version='')
 	{
 		if( empty($str) )

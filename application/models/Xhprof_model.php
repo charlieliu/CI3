@@ -5,14 +5,6 @@
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
 class Xhprof_model extends CI_Model {
-
-	function __construct()
-	{
-		// 呼叫模型(Model)的建構函數
-		parent::__construct();
-		$this->load->database();
-	}
-
 	public function query_log($run_id='', $set_name='',$remark_str='',$page=1,$limit=20,$is_add=TRUE)
 	{
 		$limit = intval($limit);

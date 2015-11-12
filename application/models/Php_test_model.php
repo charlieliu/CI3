@@ -5,12 +5,6 @@
  * @author Charlie Liu <liuchangli0107@gmail.com>
  */
 class Php_test_model extends CI_Model {
-	function __construct()
-	{
-		// 呼叫模型(Model)的建構函數
-		parent::__construct();
-		$this->load->database();
-	}
 	public function query_hash_test($hash_key='',$page=1,$limit=20,$is_add=true)
 	{
 		$limit = intval($limit);
