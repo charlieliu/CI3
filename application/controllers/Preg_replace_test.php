@@ -3,7 +3,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Preg_replace_test extends CI_Controller {
 
-	public $current_title = 'PHP 測試';
+	public $current_title = 'PHP Preg_replace 測試';
 	public $page_list = '';
 	public $UserAgent = array() ;
 
@@ -67,7 +67,13 @@ class Preg_replace_test extends CI_Controller {
 
 		echo "<br><br><br><br><br><br>";
 		$string = json_encode($ary);
-		$preg_string = preg_replace('/(19|20)(\d{2})\x{005c}\x{002f}(\d{1,2})\x{005c}\x{002f}(\d{1,2})T(\d{1,2}):(\d{1,2}):(\d{1,2})Z/', '${1}${2}\/${3}\/${4} ${5}:${6}:${7}', $string);
+		$preg_string = preg_replace('/(\d{4})\x{005c}\x{002f}(\d{1,2})\x{005c}\x{002f}(\d{1,2})T(\d{1,2}):(\d{1,2}):(\d{1,2})Z/', '${1}\/${2}\/${3} ${4}:${5}:${6}', $string);
+		echo $preg_string;
+		echo "<br><br><br><br><br><br>";
+		var_dump(json_decode($preg_string));
+
+		echo "<br><br><br><br><br><br>";
+		$preg_string = preg_replace('/(\d{4})\x{005c}\x{002f}(\d{1,2})\x{005c}\x{002f}(\d{1,2})\x{0020}(\d{1,2}):(\d{1,2}):(\d{1,2})/', '${1}\/${2}\/${3}T${4}:${5}:${6}Z', $string);
 		echo $preg_string;
 		echo "<br><br><br><br><br><br>";
 		var_dump(json_decode($preg_string));
