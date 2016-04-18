@@ -8,7 +8,7 @@
     </form>
 
     <!-- Variable Pairs -->
-    <table id="table-transform" data-toolbar="#transform-buttons" border="1" style="margin:1em;z">
+    <table id="table-transform" data-toolbar="#transform-buttons" border="1" style="margin:1em;">
         <thead>
             <tr>
                 <th>方式</th>

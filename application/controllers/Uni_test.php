@@ -91,7 +91,7 @@ class Uni_test extends CI_Controller {
 
 		// Template parser class
 		// 中間挖掉的部分
-		$content_div = $this->parser->parse('welcome_view', $data, true);
+		$content_div = $this->parser->parse('uni_test/uni_view', $data, true);
 		// 中間部分塞入外框
 		$html_date = $data ;
 		$html_date['content_div'] = $content_div ;
