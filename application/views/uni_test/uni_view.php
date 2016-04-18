@@ -92,12 +92,38 @@ function cc(n){
     }
     return n;
 }
+function clean_td()
+{
+    $('#cx_0').html('A x 1');
+    $('#cx_1').html('B x 2');
+    $('#cx_2').html('C x 1');
+    $('#cx_3').html('D x 2');
+    $('#cx_4').html('E x 1');
+    $('#cx_5').html('F x 2');
+    $('#cx_6').html('G x 4');
+    $('#cx_7').html('H x 1');
+    $('#cx_SUM').html('');
+    $('#cx_res').html('');
+    for (i=0; i<=7; i++){
+        $('#cc_'+i).html('');
+    }
+    $('#cc_SUM').html('');
+    $('#cc_res').html('');
+}
 $(document).ready(function(){
     $('#submit_btn').off('click').click(function(){
         if(event.preventDefault)event.preventDefault();else event.returnValue = false;
         NO = $('input[name="uni_no"]').val();
         SUM = 0;
-        if (NO.length != 8) $('#cx_res').html("統編錯誤，要有 8 個數字"); else $('#cx_res').html("");
+        clean_td();
+        if (NO.length != 8){
+            $('#cx_res').html("統編錯誤，要有 8 個數字");
+            return;
+        }
+        else
+        {
+            $('#cx_res').html("");
+        }
         var cnum = NO.split("");
         for (i=0; i<=7; i++){
             if (cnum[i].charCodeAt() < 48 || cnum[i].charCodeAt() > 57) {
