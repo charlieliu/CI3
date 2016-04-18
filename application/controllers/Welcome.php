@@ -140,6 +140,11 @@ class Welcome extends CI_Controller {
 			'c'=>'',
 		) ;
 		$content[] = array(
+			'content_title' => '統一編號 測試',
+			'content_url' => base_url().'uni_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
+			'c'=>'',
+		) ;
+		$content[] = array(
 			'content_title' => 'phpinfo',
 			'content_url' => base_url().'phpinfo.php',
 			'c'=>'',
