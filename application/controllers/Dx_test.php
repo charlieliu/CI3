@@ -76,7 +76,13 @@ class Dx_test extends CI_Controller {
 	// 測試分類畫面
 	public function dxChart()
 	{
-		$html_date['title'] = 'DevExpress dxChart 測試';
+		// 標題 內容顯示
+		$html_date = array(
+			'title' =>  'DevExpress dxChart 測試',
+			'current_title' => $this->current_title,
+			'current_page' => strtolower(__CLASS__), // 當下類別
+			'current_fun' => strtolower(__FUNCTION__), // 當下function
+		);
 
 		$html_date['js'][]['src'] = base_url().'js/jquery-1.11.js';
 		$html_date['js'][]['src'] = base_url().'js/dx/globalize.min.js';

@@ -14,6 +14,11 @@
     {js}<script type="text/javascript" src="{src}"></script>{/js}
 </head>
 <body>
+    <div class="breadcrumb">
+        <a href="<?=base_url()?>" title="首頁"><span>首頁</span></a>
+        <?PHP if( $current_fun!='index' && $current_fun!=$current_page ): ?>&nbsp;>&nbsp;<a href="<?=base_url()?>{current_page}" title="{current_title}"><span>{current_title}</span></a><?PHP endif; ?>
+        &nbsp;>&nbsp;{title}
+    </div>
     <div id="chartContainer" style="max-width: 700px; height: 400px;"></div>
 </body>
 </html>
