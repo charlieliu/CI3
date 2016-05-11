@@ -29,6 +29,18 @@ class Dx_test extends CI_Controller {
 		$this->load->model('php_test_model','',TRUE) ;
 
 		$this->pub->check_login();
+
+		$this->UserAgent = $this->pub->get_UserAgent() ;
+		if( isset($this->UserAgent['O']) )
+		{
+			$this->php_test_model->query_user_agent($this->UserAgent) ;
+		}
+
+		$content[] = array(
+			'content_title' => 'dxChart',
+			'content_url' => base_url().'dx_test/dxChart',
+		) ;
+		$this->page_list = $content ;
 	}
 
 	// 取得標題
@@ -40,12 +52,36 @@ class Dx_test extends CI_Controller {
 	// 測試分類畫面
 	public function index()
 	{
-		$html_date['title'] = $this->current_title;
+		$content = $this->page_list ;
+		// 標題 內容顯示
+		$data = array(
+			'title' => $this->current_title,
+			'current_title' => $this->current_title,
+			'current_page' => strtolower(__CLASS__), // 當下類別
+			'current_fun' => strtolower(__FUNCTION__), // 當下function
+			'content' => $content,
+		);
 
-		$html_date['js'][]['src'] = 'js/jquery-1.11.js';
-		$html_date['js'][]['src'] = 'js/dx/globalize.min.js';
-		$html_date['js'][]['src'] = 'js/dx/dx.chartjs.js';
-		$html_date['js'][]['src'] = 'js/dx/chartjs.js';
+		// Template parser class
+		// 中間挖掉的部分
+		$content_div = $this->parser->parse('welcome_view', $data, true);
+		// 中間部分塞入外框
+		$html_date = $data ;
+		$html_date['content_div'] = $content_div ;
+
+		$view = $this->parser->parse('index_view', $html_date, true);
+		$this->pub->remove_view_space($view);
+	}
+
+	// 測試分類畫面
+	public function dxChart()
+	{
+		$html_date['title'] = 'DevExpress dxChart 測試';
+
+		$html_date['js'][]['src'] = base_url().'js/jquery-1.11.js';
+		$html_date['js'][]['src'] = base_url().'js/dx/globalize.min.js';
+		$html_date['js'][]['src'] = base_url().'js/dx/dx.chartjs.js';
+		$html_date['js'][]['src'] = base_url().'js/dx/chartjs.js';
 
 		$view = $this->parser->parse('dx_test/index_view', $html_date, true);
 		$this->pub->remove_view_space($view);

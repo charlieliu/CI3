@@ -75,7 +75,8 @@
     }
 
     $js_link = array();
-    $js_link[] = 'js/jquery-1.11.js';
+    // $js_link[] = 'js/jquery-1.11.js';
+    $js_link[] = 'js/jquery-1.12.3.min.js';
     $js_link[] = 'css/bootstrap-3.2.0-dist/js/bootstrap.min.js';
     $js_link[] = 'js/welcome.js';
     $js_link = (!empty($js)&&is_array($js)&&count($js)) ? array_merge($js_link,$js) : $js_link ;
