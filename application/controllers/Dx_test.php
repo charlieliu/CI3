@@ -40,6 +40,10 @@ class Dx_test extends CI_Controller {
 			'content_title' => 'dxChart',
 			'content_url' => base_url().'dx_test/dxChart',
 		) ;
+		$content[] = array(
+			'content_title' => 'dxData',
+			'content_url' => base_url().'dx_test/dxData',
+		) ;
 		$this->page_list = $content ;
 	}
 
@@ -89,7 +93,31 @@ class Dx_test extends CI_Controller {
 		$html_date['js'][]['src'] = base_url().'js/dx/dx.chartjs.js';
 		$html_date['js'][]['src'] = base_url().'js/dx/chartjs.js';
 
-		$view = $this->parser->parse('dx_test/index_view', $html_date, true);
+		$view = $this->parser->parse('dx_test/dxChart_view', $html_date, true);
+		$this->pub->remove_view_space($view);
+	}
+
+	// 測試分類畫面
+	public function dxData()
+	{
+		// 標題 內容顯示
+		$html_date = array(
+			'title' =>  'DevExpress dxData 測試',
+			'current_title' => $this->current_title,
+			'current_page' => strtolower(__CLASS__), // 當下類別
+			'current_fun' => strtolower(__FUNCTION__), // 當下function
+		);
+
+		$html_date['css'][]['href'] = base_url().'css/dx/dx.common.css';
+		// $html_date['css'][]['href'] = base_url().'css/dx/dx.light.css';
+		$html_date['css'][]['href'] = base_url().'css/dx/dx.dark.css';
+
+		$html_date['js'][]['src'] = base_url().'js/jquery-1.11.js';
+		$html_date['js'][]['src'] = base_url().'js/dx/globalize.min.js';
+		$html_date['js'][]['src'] = base_url().'js/dx/dx.webappjs.js';
+		$html_date['js'][]['src'] = base_url().'js/dx/datajs.js';
+
+		$view = $this->parser->parse('dx_test/dxData_view', $html_date, true);
 		$this->pub->remove_view_space($view);
 	}
 }
