@@ -69,7 +69,7 @@ $(document).ready(function(){
 		},
 		// group data
 		groupPanel: {
-			visable: true
+			visible: true
 		},
 		// data summary
 		summary: {
