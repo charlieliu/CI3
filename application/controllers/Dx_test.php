@@ -98,7 +98,7 @@ class Dx_test extends CI_Controller {
 	}
 
 	// 測試分類畫面
-	public function dxData()
+	public function dxData($css='l')
 	{
 		// 標題 內容顯示
 		$html_date = array(
@@ -109,8 +109,10 @@ class Dx_test extends CI_Controller {
 		);
 
 		$html_date['css'][]['href'] = base_url().'css/dx/dx.common.css';
-		// $html_date['css'][]['href'] = base_url().'css/dx/dx.light.css';
-		$html_date['css'][]['href'] = base_url().'css/dx/dx.dark.css';
+		if ('l' == $css)
+			$html_date['css'][]['href'] = base_url().'css/dx/dx.light.css';
+		else
+			$html_date['css'][]['href'] = base_url().'css/dx/dx.dark.css';
 
 		$html_date['js'][]['src'] = base_url().'js/jquery-1.11.js';
 		$html_date['js'][]['src'] = base_url().'js/dx/globalize.min.js';
