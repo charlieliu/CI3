@@ -48,6 +48,14 @@
                     <div class="dx-field-value"><div id="colorBox"></div></div>
                 </div>
                 <div class="dx-field">
+                    <div class="dx-field-label">calendar</div>
+                    <div class="dx-field-value"><div id="calendar"></div></div>
+                </div>
+                <div class="dx-field">
+                    <div class="dx-field-label">fileUploader</div>
+                    <div class="dx-field-value"><div id="fileUploader"></div></div>
+                </div>
+                <div class="dx-field">
                     <div class="dx-field-label">Information</div>
                     <div class="dx-field-value"><div id="textArea"></div></div>
                 </div>
