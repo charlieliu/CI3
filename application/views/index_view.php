@@ -40,7 +40,7 @@
                 'ver'   => ''
             );
             echo load_html_file($link);
-            exit($val);
+            exit('LINE: '.__LINE__.'/'.$val);
         }
         else if( file_exists($val) )
         {
@@ -148,9 +148,8 @@
 
         <h1>{title}</h1>
         {content_div}
-        <!--
-        <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
-        -->
+
+        <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 
         <?PHP if( $current_page=='session_test'): ?><div>COOKIE :<?PHP print_r($_COOKIE); ?></div><?PHP endif; ?>
     </div>
