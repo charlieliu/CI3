@@ -149,7 +149,8 @@
         <h1>{title}</h1>
         {content_div}
 
-        <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+        <?php $this->benchmark->mark('end'); $elapsed_time = $this->benchmark->elapsed_time('start', 'end'); ?>
+        <p class="footer">Page rendered in <strong><?php echo $elapsed_time; ?></strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 
         <?PHP if( $current_page=='session_test'): ?><div>COOKIE :<?PHP print_r($_COOKIE); ?></div><?PHP endif; ?>
     </div>
