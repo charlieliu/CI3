@@ -36,22 +36,46 @@ class Dx_test extends CI_Controller {
             $this->php_test_model->query_user_agent($this->UserAgent) ;
         }
 
-        $content[] = array(
+        $content['dxChart'] = array(
             'content_title' => 'dxChart',
             'content_url' => base_url().'dx_test/dxChart',
         ) ;
-        $content[] = array(
-            'content_title' => 'dxData',
-            'content_url' => base_url().'dx_test/dxData',
+        $content['dxAccordion'] = array(
+            'content_title' => 'dxAccordion',
+            'content_url' => base_url().'dx_test/index/dxAccordion',
+            'disabled'=>TRUE,
         ) ;
-        $content[] = array(
-            'content_title' => 'dx_input',
-            'content_url' => base_url().'dx_test/dx_input',
+        $content['dxDeferRendering'] = array(
+            'content_title' => 'dxDeferRendering',
+            'content_url' => base_url().'dx_test/index/dxDeferRendering',
+            'disabled'=>TRUE,
         ) ;
-        $content[] = array(
-            'content_title' => 'dxTagBox',
-            'content_url' => base_url().'dx_test/dxTagBox',
+        $content['dx_input'] = array(
+            'content_title' => 'dxTextBox dxButton dxNumberBox dxTextArea dxFileUploader  dxValidator dxValidationSummary',
+            'content_url' => base_url().'dx_test/index/dx_input',
         ) ;
+
+        $dx[] = 'dxActionSheet';
+        $dx[] = 'dxAutocomplete';
+        $dx[] = 'dxBox';
+        $dx[] = 'dxCalendar';
+        $dx[] = 'dxCheckBox';
+        $dx[] = 'dxColorBox';
+        $dx[] = 'dxDataGrid';
+        $dx[] = 'dxDateBox';
+        // $dx[] = 'dxForm';
+        $dx[] = 'dxRadioGroup';
+        $dx[] = 'dxSelectBox';
+        $dx[] = 'dxTagBox';
+
+        foreach ($dx as $val)
+        {
+            $content[$val] = array(
+                'content_title' => $val,
+                'content_url' => base_url().'dx_test/index/'.$val,
+            ) ;
+        }
+
         $this->page_list = $content ;
     }
 
@@ -62,30 +86,15 @@ class Dx_test extends CI_Controller {
     }
 
     // 測試分類畫面
-    public function index()
+    public function index($method='', $css='l')
     {
-        $content = $this->page_list ;
-        // 標題 內容顯示
-        $data = array(
-            'current_page' => strtolower(__CLASS__), // 當下類別
-            'current_fun' => strtolower(__FUNCTION__), // 當下function
-            'content' => $content,
-        );
-
-        // Template parser class
-        // 中間挖掉的部分
-        $content_div = $this->parser->parse('welcome_view', $data, true);
-        // 中間部分塞入外框
-        $html_date = $data ;
-        $html_date['title'] = $this->current_title;
-        $html_date['current_title'] = $this->current_title;
-        $html_date['content_div'] = $content_div ;
-
-        $view = $this->parser->parse('index_view', $html_date, true);
-        $this->pub->remove_view_space($view);
+        if ( in_array($method, array_keys($this->page_list)))
+            $this->_dx_view($method, $css);
+        else
+            $this->_list_view();
     }
 
-    // 測試畫面
+    // 測試畫面 Chart
     public function dxChart()
     {
         $data = [];
@@ -109,78 +118,41 @@ class Dx_test extends CI_Controller {
         $this->pub->remove_view_space($view);
     }
 
-    // 測試畫面
-    public function dxData($css='l')
+    private function _list_view()
     {
-        $data = [];
-        // Template parser class
-        // 中間挖掉的部分
-        $content_div = $this->parser->parse('dx_test/dxData_view', $data, true);
+        $content = $this->page_list ;
         // 標題 內容顯示
-        $html_date = array(
-            'title' =>  'dxData',
-            'current_title' => $this->current_title,
+        $data = array(
             'current_page' => strtolower(__CLASS__), // 當下類別
-            'current_fun' => strtolower(__FUNCTION__), // 當下function
-            'content_div'   => $content_div,
+            'current_fun' =>'index', // 當下function
+            'content' => $content,
         );
 
-        $html_date['css'][] = 'css/dx/dx.common.css';
-        if ('l' == $css)
-            $html_date['css'][] = 'css/dx/dx.light.css';
-        else
-            $html_date['css'][] = 'css/dx/dx.dark.css';
-
-        $html_date['js'][] = 'js/dx/globalize.min.js';
-        $html_date['js'][] = 'js/dx/dx.webappjs.js';
-        $html_date['js'][] = 'js/dx/datajs.js';
+        // Template parser class
+        // 中間挖掉的部分
+        $content_div = $this->parser->parse('welcome_view', $data, true);
+        // 中間部分塞入外框
+        $html_date = $data ;
+        $html_date['title'] = $this->current_title;
+        $html_date['current_title'] = $this->current_title;
+        $html_date['content_div'] = $content_div ;
 
         $view = $this->parser->parse('index_view', $html_date, true);
         $this->pub->remove_view_space($view);
     }
 
-    // 測試畫面
-    public function dx_input($css='l')
+    private function _dx_view($function, $css, $data = [])
     {
-        $data = [];
         // Template parser class
         // 中間挖掉的部分
-        $content_div = $this->parser->parse('dx_test/dx_input_view', $data, true);
-
-        // 標題 內容顯示
-        $html_date = array(
-            'title'                 => 'dx input',
-            'current_title'   => $this->current_title,
-            'current_page' => strtolower(__CLASS__), // 當下類別
-            'current_fun'   => strtolower(__FUNCTION__), // 當下function
-            'content_div'   => $content_div,
-        );
-
-        $html_date['css'][] = 'css/dx/dx.common.css';
-        if ('l' == $css)
-            $html_date['css'][] = 'css/dx/dx.light.css';
-        else
-            $html_date['css'][] = 'css/dx/dx.dark.css';
-
-        $html_date['js'][] = 'js/dx/globalize.min.js';
-        $html_date['js'][] = 'js/dx/dx.webappjs.js';
-        $html_date['js'][] = 'js/dx/dx_input.js';
-
-        $view = $this->parser->parse('index_view', $html_date, true);
-        $this->pub->remove_view_space($view);
-    }
-
-    public function dxTagBox($css='l'){
-        $data = [];
-        // Template parser class
-        // 中間挖掉的部分
-        $content_div = $this->parser->parse('dx_test/dxTagBox_view', $data, true);
+        $content_div = $this->parser->parse('dx_test/'.$function.'_view', $data, true);
+        $title = ('dx_input' == $function) ? 'dxTextBox dxButton dxNumberBox dxTextArea dxFileUploader  dxValidator dxValidationSummary' : $function ;
         // 中間部分塞入外框
         $html_date = [
-            'title' => 'dxTagBox',
+            'title' => $title,
             'current_title' => $this->current_title,
             'current_page' => strtolower(__CLASS__), // 當下類別
-            'current_fun' => strtolower(__FUNCTION__), // 當下function
+            'current_fun' => strtolower($function), // 當下function
             'content_div'   => $content_div,
         ] ;
 
@@ -189,11 +161,13 @@ class Dx_test extends CI_Controller {
             $html_date['css'][] = 'css/dx/dx.light.css';
         else
             $html_date['css'][] = 'css/dx/dx.dark.css';
-        $html_date['css'][] = 'css/dx/dxTagBox.css';
+        if (file_exists('css/dx/'.$function.'.css'))
+            $html_date['css'][] = 'css/dx/'.$function.'.css';
 
         $html_date['js'][] = 'js/dx/globalize.min.js';
         $html_date['js'][] = 'js/dx/dx.webappjs.js';
-        $html_date['js'][] = 'js/dx/dxTagBox.js';
+        $html_date['js'][] = 'js/dx/dx.all.js';
+        $html_date['js'][] = 'js/dx/'.$function.'.js';
 
         $view = $this->parser->parse('index_view', $html_date, true);
         $this->pub->remove_view_space($view);

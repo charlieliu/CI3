@@ -1,0 +1,11 @@
+.options {
+    padding-top: 30px;
+}
+
+.options .dx-checkbox {
+    margin-right: 15px;
+}
+
+#accordion h1 {
+    font-size:20px;
+}

@@ -1,98 +1,5 @@
 var validationGroup = 'SampleGroup';
-var selectBoxData = [{
-        "name": "嘉義",
-        "capital": "CYI ",
-        "en_name":"CHIAYI"
-    },{
-        "name": "七美",
-        "capital": "CMJ",
-        "en_name":"CHIMAY"
-    },{
-        "name": "綠島",
-        "capital": "GNI",
-        "en_name":"GREEN ISLAND"
-    },{
-        "name": "花蓮",
-        "capital": "HUN",
-        "en_name":"HUALIEN"
-    },{
-        "name": "高雄",
-        "capital": "KHH",
-        "en_name":"KAOHSIUNG"
-    },{
-        "name": "金門",
-        "capital": "KNH",
-        "en_name":"KINMEN"
-    },{
-        "name": "蘭嶼",
-        "capital": "KYD",
-        "en_name":"ORCHID ISLAND"
-    },    {
-        "name": "馬公",
-        "capital": "MZG",
-        "en_name":"MAKUNG"
-    },{
-        "name": "馬祖",
-        "capital": "MFK",
-        "en_name":"MATSU"
-    },{
-        "name": "屏東",
-        "capital": "PIF",
-        "en_name":"PINGTUNG"
-    },{
-        "name": "台南",
-        "capital": "TNN",
-        "en_name":"TAINAN"
-    },{
-        "name": "松山",
-        "capital": "TSA",
-        "en_name":"SUNG SHAN"
-    },
-    {
-        "name": "台東",
-        "capital": "TTT",
-        "en_name":"TAITUNG"
-    },{
-        "name": "台中",
-        "capital": "TXG",
-        "en_name":"TAICHUNG"
-    },{
-        "name": "望安",
-        "capital": "WOT",
-        "en_name":"WON-AN"
-    }];
-var priorities = ["Low", "Normal", "Urgent", "High"],
-        tasks = [{
-            id: 1,
-            subject: "Choose between PPO and HMO Health Plan",
-            assignedEmployeeId: 1,
-            priorityIndex: 3
-        }, {
-            id: 2,
-            subject: "Non-Compete Agreements",
-            assignedEmployeeId: 2,
-            priorityIndex: 0
-        }, {
-            id: 3,
-            subject: "Comment on Revenue Projections",
-            assignedEmployeeId: 2,
-            priorityIndex: 1
-        }, {
-            id: 4,
-            subject: "Sign Updated NDA",
-            assignedEmployeeId: 3,
-            priorityIndex: 2
-        }, {
-            id: 5,
-            subject: "Submit Questions Regarding New NDA",
-            assignedEmployeeId: 6,
-            priorityIndex: 3
-        }, {
-            id: 6,
-            subject: "Rollout of New Website and Marketing Brochures",
-            assignedEmployeeId: 22,
-            priorityIndex: 3
-        }];
+
 var windowresize = function(){
     $('.dx-field-label').css('max-width', '200px').css('min-width', '120px');
     var w1 = parseInt($('.dx-field').css('width').substr(0,($('.dx-field').css('width').length)-2)),
@@ -123,6 +30,7 @@ $(document).ready(function(){
             min: 4
         }]
     });
+
     $('#password').dxTextBox({
         mode: 'password',
         placeholder: 'Password',
@@ -174,9 +82,11 @@ $(document).ready(function(){
             }
         }
     });
+
     $('#summary').dxValidationSummary({
         validationGroup: validationGroup
     });
+
     $("#numberBox").dxNumberBox({
         min: -100,
         max: 100,
@@ -199,29 +109,6 @@ $(document).ready(function(){
         }]
     });
 
-    $("#selectBox").dxSelectBox({
-        dataSource: selectBoxData,
-        valueExpr: 'capital',
-        displayExpr: 'name',
-        onValueChanged: function(e){
-            console.log(e.itemData.en_name);
-        }
-    }).dxValidator({
-        name: 'selectBox',
-        validationGroup: validationGroup,
-        validationRules: [{
-            type: 'required'
-        }]
-    });
-
-    $("#colorBox").dxColorBox({
-        value: 'rgba(255, 144, 0, 0.3)',
-        editAlphaChannel: true,
-        onValueChanged: function(e){
-            console.log(e);
-        }
-    });
-
     $("#textArea").dxTextArea({
         value: '',
         placeholder: 'Text displayed by the widget',
@@ -232,81 +119,6 @@ $(document).ready(function(){
         }
     }).dxValidator({
         name: 'textArea',
-        validationGroup: validationGroup,
-        validationRules: [{
-            type: 'required'
-        }]
-    });
-
-    $("#radio-group-simple").dxRadioGroup({
-        items: priorities,
-        value: priorities[0],
-        onValueChanged: function(e){
-            console.log(e);
-        }
-    });
-
-    $("#radio-group-disabled").dxRadioGroup({
-        items: priorities,
-        value: priorities[1],
-        disabled: true,
-        onValueChanged: function(e){
-            console.log(e);
-        }
-    });
-
-    $("#radio-group-change-layout").dxRadioGroup({
-        items: priorities,
-        value: priorities[1],
-        layout: "horizontal",
-        onValueChanged: function(e){
-            $("#radio-group-disabled").dxRadioGroup({value: e.value}).dxRadioGroup("instance");
-        }
-    });
-
-    $("#radio-group-with-template").dxRadioGroup({
-        items: priorities,
-        value: priorities[2],
-        itemTemplate: function(itemData, _, itemElement){
-            itemElement.parent().addClass(itemData.toLowerCase()).text(itemData);
-        },
-        onValueChanged: function(e){
-            console.log(e);
-            $("#list").children().remove();
-            $.each(tasks, function(i, item){
-                if(priorities[item.priorityIndex] == e.value)
-                {
-                    $("#list").append($("<li/>").text(tasks[i].subject));
-                }
-            });
-        },
-        onOptionChanged: function(e){
-            console.log(e);
-        },
-        onInitialized: function(){
-            var this_value = this._options.value;
-            $("#list").children().remove();
-            $.each(tasks, function(i, item){
-                if(priorities[item.priorityIndex] == this_value)
-                {
-                    $("#list").append($("<li/>").text(tasks[i].subject));
-                }
-            });
-        }
-    });
-
-    $("#calendar").dxCalendar({
-        min: new Date(2000,1,1),
-        max: new Date(),
-        // value: new Date(),
-        firstDayOfWeek: 0,
-        showTodayButton: true,
-        activeStateEnabled: true,
-        onValueChanged: function(e){
-            console.log(e.value);
-        }
-    }).dxValidator({
-        name: 'calendar',
         validationGroup: validationGroup,
         validationRules: [{
             type: 'required'
