@@ -14,7 +14,11 @@ $(document).ready(function(){
     $("#handler").dxCheckBox({
         value: undefined,
         onValueChanged: function(data) {
+            console.log(data);
             disabledCheckbox.option("value", data.value);
+        },
+        onInitialized: function(data) {
+            console.log(data);
         }
     });
 

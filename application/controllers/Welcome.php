@@ -108,7 +108,7 @@ class Welcome extends CI_Controller {
 			'c'=>'js_test',
 		) ;
 		$content[] = array(
-			'content_title' => 'HTML5 測試',
+			'content_title' => 'HTML 測試',
 			'content_url' => base_url().'html5_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
 			'c'=>'html5_test',
 		) ;
