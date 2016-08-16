@@ -451,6 +451,22 @@ class Php_test extends CI_Controller {
         $dt->setTimezone($ESTTZ);
         $date_ary['America/New_York'] = $dt->format(DATE_RFC822);
 
+        $date_ary['Note'] = 'Dates in the m/d/y or d-m-y formats are disambiguated by looking at the separator between the various components: if the separator is a slash (/), then the American m/d/y is assumed; whereas if the separator is a dash (-) or a dot (.), then the European d-m-y format is assumed. If, however, the year is given in a two digit format and the separator is a dash (-, the date string is parsed as y-m-d. To avoid potential ambiguity, it\'s best to use ISO 8601 (YYYY-MM-DD) dates or DateTime::createFromFormat() when possible.';
+
+        $date_ary["strtotime('01/08/2016')"] = strtotime('01/08/2016');
+        $date_ary["strtotime('01-08-2016')"] = strtotime('01-08-2016');
+        $date_ary["strtotime('08/01/2016')"] = strtotime('08/01/2016');
+        $date_ary["strtotime('08-01-2016')"] = strtotime('08-01-2016');
+        $date_ary["strtotime('2016/08/01)"] = strtotime('2016/08/01');
+        $date_ary["strtotime('2016-08-01')"] = strtotime('2016-08-01');
+
+        $date_ary["strtotime('16/08/2016')"] = strtotime('16/08/2016');
+        $date_ary["strtotime('16-08-2016')"] = strtotime('16-08-2016');
+        $date_ary["strtotime('08/16/2016')"] = strtotime('08/16/2016');
+        $date_ary["strtotime('08-16-2016')"] = strtotime('08-16-2016');
+        $date_ary["strtotime('2016/08/16)"] = strtotime('2016/08/16');
+        $date_ary["strtotime('2016-08-16')"] = strtotime('2016-08-16');
+
         return $date_ary ;
     }
 
