@@ -1,34 +1,51 @@
 [
     {
-        "name": "mikey179/vfsStream",
-        "version": "v1.1.0",
-        "version_normalized": "1.1.0.0",
+        "name": "tightenco/collect",
+        "version": "v5.2.43",
+        "version_normalized": "5.2.43.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/mikey179/vfsStream.git",
-            "reference": "fc0fe8f4d0b527254a2dc45f0c265567c881d07e"
+            "url": "https://github.com/tightenco/collect.git",
+            "reference": "6add72fba3816232c71a3338081ed8cbef41974d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/fc0fe8f4d0b527254a2dc45f0c265567c881d07e",
-            "reference": "fc0fe8f4d0b527254a2dc45f0c265567c881d07e",
+            "url": "https://api.github.com/repos/tightenco/collect/zipball/6add72fba3816232c71a3338081ed8cbef41974d",
+            "reference": "6add72fba3816232c71a3338081ed8cbef41974d",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.0"
+            "php": ">=5.5.9"
         },
-        "time": "2012-08-25 12:49:29",
+        "require-dev": {
+            "mockery/mockery": "~0.9.4",
+            "phpunit/phpunit": "~4.1"
+        },
+        "time": "2016-08-10 15:40:20",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
-            "psr-0": {
-                "org\\bovigo\\vfs": "src/main/php"
+            "files": [
+                "src/Illuminate/Support/helpers.php"
+            ],
+            "psr-4": {
+                "Illuminate\\": "src/Illuminate"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "BSD"
+            "MIT"
         ],
-        "homepage": "http://vfs.bovigo.org/"
+        "authors": [
+            {
+                "name": "Taylor Otwell",
+                "email": "taylorotwell@gmail.com"
+            }
+        ],
+        "description": "Collect - Illuminate Collections as a separate package.",
+        "keywords": [
+            "collection",
+            "laravel"
+        ]
     }
 ]

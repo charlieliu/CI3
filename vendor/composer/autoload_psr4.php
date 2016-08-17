@@ -6,4 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Services\\' => array($baseDir . '/application/services'),
+    'Repositories\\' => array($baseDir . '/application/repositories'),
+    'Presenters\\' => array($baseDir . '/application/presenters'),
+    'Illuminate\\' => array($vendorDir . '/tightenco/collect/src/Illuminate'),
 );

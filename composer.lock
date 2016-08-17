@@ -4,44 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "425582499c09ce5b5eebb2abb6dc2111",
-    "content-hash": "163eb4764cfceda4201e2d993dd1e79d",
-    "packages": [],
-    "packages-dev": [
+    "hash": "48713af1a03e027a321e191b789a0280",
+    "content-hash": "a2cc0e0fc0836cfc0c1d259bef56c4d6",
+    "packages": [
         {
-            "name": "mikey179/vfsStream",
-            "version": "v1.1.0",
+            "name": "tightenco/collect",
+            "version": "v5.2.43",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
-                "reference": "fc0fe8f4d0b527254a2dc45f0c265567c881d07e"
+                "url": "https://github.com/tightenco/collect.git",
+                "reference": "6add72fba3816232c71a3338081ed8cbef41974d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/fc0fe8f4d0b527254a2dc45f0c265567c881d07e",
-                "reference": "fc0fe8f4d0b527254a2dc45f0c265567c881d07e",
+                "url": "https://api.github.com/repos/tightenco/collect/zipball/6add72fba3816232c71a3338081ed8cbef41974d",
+                "reference": "6add72fba3816232c71a3338081ed8cbef41974d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.4",
+                "phpunit/phpunit": "~4.1"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "org\\bovigo\\vfs": "src/main/php"
+                "files": [
+                    "src/Illuminate/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "Illuminate\\": "src/Illuminate"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD"
+                "MIT"
             ],
-            "homepage": "http://vfs.bovigo.org/",
-            "time": "2012-08-25 12:49:29"
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "Collect - Illuminate Collections as a separate package.",
+            "keywords": [
+                "collection",
+                "laravel"
+            ],
+            "time": "2016-08-10 15:40:20"
         }
     ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "tightenco/collect": 0
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

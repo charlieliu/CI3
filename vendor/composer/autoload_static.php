@@ -4,22 +4,55 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit35e578d82ef43a168aec0c3d06906240
+class ComposerStaticInitb0d614b436a4cdcfae4614a2503f3420
 {
-    public static $prefixesPsr0 = array (
-        'o' => 
+    public static $files = array (
+        '7ba3c774c30c8399e359b5ff7f3b943e' => __DIR__ . '/..' . '/tightenco/collect/src/Illuminate/Support/helpers.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'S' => 
         array (
-            'org\\bovigo\\vfs' => 
-            array (
-                0 => __DIR__ . '/..' . '/mikey179/vfsStream/src/main/php',
-            ),
+            'Services\\' => 9,
+        ),
+        'R' => 
+        array (
+            'Repositories\\' => 13,
+        ),
+        'P' => 
+        array (
+            'Presenters\\' => 11,
+        ),
+        'I' => 
+        array (
+            'Illuminate\\' => 11,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Services\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/application/services',
+        ),
+        'Repositories\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/application/repositories',
+        ),
+        'Presenters\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/application/presenters',
+        ),
+        'Illuminate\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tightenco/collect/src/Illuminate',
         ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit35e578d82ef43a168aec0c3d06906240::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb0d614b436a4cdcfae4614a2503f3420::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb0d614b436a4cdcfae4614a2503f3420::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

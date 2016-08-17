@@ -132,7 +132,7 @@ $config['subclass_prefix'] = 'MY_';
 |	autoloading (application/config/autoload.php)
 */
 // $config['composer_autoload'] = FALSE;
-$config['composer_autoload'] = APPPATH . '/vendor/autoload.php';
+$config['composer_autoload'] = APPPATH . '../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
