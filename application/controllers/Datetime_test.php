@@ -25,6 +25,9 @@ class Datetime_test extends CI_Controller {
         header("x-frame-options:sammeorigin");
         header('Content-Type: text/html; charset=utf8');
 
+        // load parser
+        $this->load->helper(['datetime_tools']);
+
         // for CSRF
         $this->_csrf = array(
             'csrf_name' => $this->security->get_csrf_token_name(),
@@ -47,7 +50,15 @@ class Datetime_test extends CI_Controller {
         ];
         $content[] = [
             'content_title' => '時間格式 測試',
-            'content_url' => 'datetime_test/deta_helper_rest',
+            'content_url' => 'datetime_test/chk_deta',
+        ];
+        $content[] = [
+            'content_title' => 'conv time zone',
+            'content_url' => 'datetime_test/conv_date',
+        ];
+        $content[] = [
+            'content_title' => 'conv time format',
+            'content_url' => 'datetime_test/conv_format',
         ];
 
         $this->page_list = $content ;
@@ -58,8 +69,6 @@ class Datetime_test extends CI_Controller {
      */
     public function index()
     {
-        //$this->check_session();
-
         $content = $this->page_list ;
 
         // 標題 內容顯示
@@ -118,11 +127,8 @@ class Datetime_test extends CI_Controller {
         $this->pub->remove_view_space($view);
     }
 
-    public function deta_helper_rest()
+    public function chk_deta()
     {
-        // load parser
-        $this->load->helper(['datetime_tools']);
-
         $show_data = [
             NULL,
             [],
@@ -159,6 +165,82 @@ class Datetime_test extends CI_Controller {
 
         $html_date = [
             'title'                   => '時間格式 測試',
+            'current_title'    => $this->current_title,
+            'current_page'  => strtolower(__CLASS__),           // 當下類別
+            'current_fun'     => strtolower(__FUNCTION__),  // 當下function
+            'content_div'     => $content_div,
+        ];
+
+        $view = $this->parser->parse('index_view', $html_date, true);
+        $this->pub->remove_view_space($view);
+    }
+
+    public function conv_date()
+    {
+
+        $dt = date('Y/m/d H:i:s');
+
+        $show_data = [];
+        $show_data[] = [
+            'in_dt' => $dt,
+            'to_tz' => 'Europe/Rome',
+        ];
+        $show_data[] = [
+            'in_dt' => $dt,
+            'to_tz' => 'America/Los_Angeles',
+        ];
+        $show_data[] = [
+            'in_dt' => $dt,
+            'to_tz' => 'America/Denver',
+        ];
+        $show_data[] = [
+            'in_dt' => $dt,
+            'to_tz' => 'America/New_York',
+        ];
+
+        // 中間挖掉的部分
+        $content_div = '<table border="1"><tr><th>input</th><th>in time zone</th><th>to time zone</th><th>output</th></tr>';
+
+        foreach ($show_data as $row)
+        {
+            $content_div .= '<tr><td>'.$row['in_dt'].'</td><td>Asia/Taipei</td><td>'.$row['to_tz'].'</td><td>'.conv_datetime($row['in_dt'], $row['to_tz']).'</td></tr>';
+        }
+        $content_div .= '</table>';
+
+        $html_date = [
+            'title'                   => 'conv time zone',
+            'current_title'    => $this->current_title,
+            'current_page'  => strtolower(__CLASS__),           // 當下類別
+            'current_fun'     => strtolower(__FUNCTION__),  // 當下function
+            'content_div'     => $content_div,
+        ];
+
+        $view = $this->parser->parse('index_view', $html_date, true);
+        $this->pub->remove_view_space($view);
+    }
+
+    public function conv_format()
+    {
+
+        $dt = date('Y/m/d H:i:s');
+
+        $tz = [
+            'Asia/Taipei',
+            'Europe/Rome',
+            'America/Los_Angeles',
+        ];
+
+        // 中間挖掉的部分
+        $content_div = '<table border="1"><tr><th>date</th><th>time zone</th><th>output</th></tr>';
+
+        foreach ($tz as $val)
+        {
+            $content_div .= '<tr><td>'.$dt.'</td><td>'.$val.'</td><td>'.zone_format($dt, $val).'</td></tr>';
+        }
+        $content_div .= '</table>';
+
+        $html_date = [
+            'title'                   => 'conv time format',
             'current_title'    => $this->current_title,
             'current_page'  => strtolower(__CLASS__),           // 當下類別
             'current_fun'     => strtolower(__FUNCTION__),  // 當下function
