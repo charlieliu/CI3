@@ -129,6 +129,11 @@ class Welcome extends CI_Controller {
             'content_url' => base_url().'php_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
             'c'=>'php_test',
         ) ;
+        $content[] = [
+            'content_title' => 'PHP DateTime 測試',
+            'content_url' => base_url().'datetime_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
+            'c'=>'',
+        ];
         $content[] = array(
             'content_title' => '動態 Hash 測試',
             'content_url' => base_url().'hash_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
