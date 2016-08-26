@@ -599,6 +599,9 @@ class Js_test extends CI_Controller {
         $html_date['css'][] = 'js/jquery-ui-1.12.0/jquery-ui.min.css';
         // $html_date['js'][] = 'js/jquery-ui-1.11.2.custom/jquery-ui.min.js';
         $html_date['js'][] = 'js/jquery-ui-1.12.0/jquery-ui.min.js';
+
+        $html_date['css'][] = 'js/jquery-timepicker-master/jquery.timepicker.css';
+        $html_date['js'][] = 'js/jquery-timepicker-master/jquery.timepicker.min.js';
         $html_date['js'][] = 'js/js_test/ui.js';
 
         $view = $this->parser->parse('index_view', $html_date, true);

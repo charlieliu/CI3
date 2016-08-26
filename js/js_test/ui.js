@@ -48,7 +48,13 @@ $(function() {
         maxDate: 0
     }).change(function(){
         console.log($(this).datepicker("getDate"));
-        $('#dt_value').html($(this).datepicker("getDate"));
+        $('#date_value').html($(this).datepicker("getDate"));
+    });
+
+    $('#timepicker').timepicker({ showDuration: true });
+
+    $('#time_value').click(function(){
+        $('#timepicker').timepicker('setTime', new Date());
     });
 
     $('.format_datepicker').each(function(){
