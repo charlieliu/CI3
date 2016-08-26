@@ -44,7 +44,20 @@ $(function() {
     });
 
     $('#datepicker').datepicker({
-        dateFormat: "yy/mm/dd"
+        dateFormat: "yy/mm/dd",
+        maxDate: 0
+    }).change(function(){
+        console.log($(this).datepicker("getDate"));
+        $('#dt_value').html($(this).datepicker("getDate"));
+    });
+
+    $('.format_datepicker').each(function(){
+        $(this).datepicker({
+            dateFormat: $(this).data('dateformat'),
+            showOptions: false,
+            maxDate: 0,
+            minDate: 0
+        }).parent('div').find('span[class="date_value"]').html($(this).datepicker("getDate"));
     });
 
     function spinner_it()

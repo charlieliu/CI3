@@ -91,7 +91,7 @@ if (!function_exists('conv_datetime'))
 
 if (!function_exists('zone_format'))
 {
-    function zone_format($dt='', $timezone='', $formate='')
+    function time_zone_format($dt='', $timezone='', $formate='')
     {
         // change $in_dt to Y/m/d H:i:s
         $dt = chk_datetime_input($dt, 'Y/m/d H:i:s');

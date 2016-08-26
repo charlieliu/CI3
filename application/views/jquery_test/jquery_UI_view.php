@@ -1,6 +1,5 @@
 <div id="body">
     <p>{current_page}/{current_fun}</p>
-
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Autocomplete</a></li>
@@ -17,7 +16,22 @@
         </div>
         <div id="tabs-2">
             <h3>Datepicker</h3>
+            <a herf="https://jqueryui.com/datepicker/">jqueryui.com</a>
             <p>Date: <input type="text" id="datepicker"></p>
+            <div>Methods getDate:<span id="dt_value"></span></div>
+            <h3>Ymd</h3>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="yy/mm/dd" value="2016/07/31"><span class="date_value"></span></div>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="yy-mm-dd" value="2016-07-31"><span class="date_value"></span></div>
+            <h3>mdY</h3>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="mm/dd/yy" value="07/31/2016"><span class="date_value"></span></div>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="mm-dd-yy" value="07-31-2016"><span class="date_value"></span></div>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="mm/dd/yy" value="07/01/2016"><span class="date_value"></span></div>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="mm-dd-yy" value="07-01-2016"><span class="date_value"></span></div>
+            <h3>dmY</h3>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="dd/mm/yy" value="31/07/2016"><span class="date_value"></span></div>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="dd-mm-yy" value="31-07-2016"><span class="date_value"></span></div>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="dd/mm/yy" value="01/07/2016"><span class="date_value"></span></div>
+            <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="dd-mm-yy" value="01-07-2016"><span class="date_value"></span></div>
         </div>
         <div id="tabs-3">
             <h3>Spinner</h3>

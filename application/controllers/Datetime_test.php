@@ -235,7 +235,7 @@ class Datetime_test extends CI_Controller {
 
         foreach ($tz as $val)
         {
-            $content_div .= '<tr><td>'.$dt.'</td><td>'.$val.'</td><td>'.zone_format($dt, $val).'</td></tr>';
+            $content_div .= '<tr><td>'.$dt.'</td><td>'.$val.'</td><td>'.time_zone_format($dt, $val).'</td></tr>';
         }
         $content_div .= '</table>';
 
