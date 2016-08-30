@@ -21,6 +21,7 @@
             <a herf="https://jqueryui.com/datepicker/">jquery-datepicker</a>
             <p>Date: <input type="text" id="datepicker"></p>
             <div>Methods getDate: <span id="date_value"></span></div>
+            <input id="Paste_text" type="text" >
             <h3>Ymd</h3>
             <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="yy/mm/dd" value="2016/07/31"><span class="date_value"></span></div>
             <div><input type="text" class="format_datepicker" disabled="disabled" data-dateformat="yy-mm-dd" value="2016-07-31"><span class="date_value"></span></div>

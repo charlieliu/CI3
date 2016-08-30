@@ -49,6 +49,21 @@ $(function() {
     }).change(function(){
         console.log($(this).datepicker("getDate"));
         $('#date_value').html($(this).datepicker("getDate"));
+
+        // copy To Clipboard 30-AUG-2016
+        $(this).select();
+        try{ var copy = document.execCommand("Copy"); } catch(e){ var copy = false; }
+        console.log(copy);
+
+        $('#Paste_text').bind("paste", function(e){
+            // access the clipboard using the api
+            var pastedData = e.originalEvent.clipboardData.getData('text');
+            console.log(pastedData);
+        }).click(function(e){
+            // Paste From Clipboard 30-AUG-2016
+            try{ var paste = document.execCommand("Paste"); } catch(e){ var paste = false; }
+            console.log(paste);
+        });
     });
 
     $('#timepicker').timepicker({ showDuration: true });
