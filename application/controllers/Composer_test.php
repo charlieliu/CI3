@@ -46,8 +46,46 @@ class Composer_test extends CI_Controller {
     {
         $atm_services = new Atm_services;
 
+        $output = [];
+
+        $collection = collect(['1' => [], '2' => [], '3' => [], '4' => [], ]);
+
+        /* ========== Closure start ========= */
+        $output['push'] = $collection->push(['5'])->push('6')->push([]);
+        $output['forget'] = $collection->forget(['1','2']);
+        /* ========== Closure end ========= */
+
+        /* ========== Callback start ========= */
+        $output['map'] = $collection
+                                    ->map(function ($item){
+                                        if(gettype($item) == 'array') $item[] = 'array';
+                                        return $item;
+                                    });
+        $each = [];
+        $collection->each(function ($item, $key) use(&$each){ $each[] = ['key'=>$key,'item'=>$item, ]; });
+        $output['each'] = $each;
+        $output['keys'] = $collection->keys();
+        $output['values'] = $collection->values();
+        $output['except'] = $collection->except([6,7]);
+        $output['only'] = $collection->only(['1', '4']);
+        $output['count'] = $collection->count();
+        $output['all'] = $collection->all();
+        /* ========== Callback end ========= */
+
+        // $collection = collect([1, 2, 3, 4]);
+        // $output['filtered'] = $collection->filter(function ($item) {
+        //     return FALSE;
+        // })->all();
+
+
+
         // 中間挖掉的部分
-        $content_div = $atm_services->echo_class();
+        $content_div = '';
+        foreach ($output as $key => $value)
+        {
+            $content_div .= '<p>'.var_export($key, TRUE).'</p>';
+            $content_div .= '<div>'.var_export($value, TRUE).'</div>';
+        }
 
         // 中間部分塞入外框
         $html_date = [
