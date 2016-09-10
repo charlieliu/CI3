@@ -111,5 +111,5 @@ table td, table th {padding:.5em;}
 .float_left{float:left}
 .float_right{float:right}
 .drap_div {float:left; width:322px; height:222px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
-.bg_gray_1 { background-color: rgba(0, 0, 0, .1); }
-.bg_gray_2 { background-color: rgba(0, 0, 0, .3); }
+.bg_gray_1 { /*background-color: rgba(221, 221, 221, 1);*/ }
+.bg_gray_2 { background-color: rgba(0, 0, 0, .4); }

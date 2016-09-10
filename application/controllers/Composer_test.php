@@ -77,15 +77,20 @@ class Composer_test extends CI_Controller {
         //     return FALSE;
         // })->all();
 
-
+        $data['content'] = [];
 
         // 中間挖掉的部分
-        $content_div = '';
         foreach ($output as $key => $value)
         {
-            $content_div .= '<p>'.var_export($key, TRUE).'</p>';
-            $content_div .= '<div>'.var_export($value, TRUE).'</div>';
+            $str = '';
+            $str .= '<p>'.var_export($key, TRUE).'</p>';
+            $str .= '<div>'.var_export($value, TRUE).'</div>';
+            $data['content'][] = [
+                'class'=>(('push'==$key || 'forget'==$key) ? 'bg_gray_2' : 'bg_gray_1'),
+                'string'=>$str,
+            ];
         }
+         $content_div = $this->parser->parse('php_test/array_filter_grid_view', $data, true);
 
         // 中間部分塞入外框
         $html_date = [
