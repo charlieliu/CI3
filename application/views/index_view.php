@@ -136,14 +136,16 @@
 </head>
 <body>
     <noscript>Your browser does not support JavaScript!</noscript>
-    <div class="float_right mg1211"><?PHP if( isset($_SESSION['uid']) ): ?><a href="<?=base_url()?>login/logout">登出<?=$_SESSION['username']?></a><?PHP endif; ?></div>
+    <div class="float_right mg1211"><?PHP if( isset($_SESSION['uid']) ): ?><a href="<?=base_url()?>login/logout">登出 <?=$_SESSION['username']?></a><?PHP endif; ?></div>
     <div id="container">
         <?PHP if( $current_page!='welcome' && $current_page!='index'): ?>
-            <div class="breadcrumb">
-                <a href="<?=base_url()?>" title="首頁"><span>首頁</span></a>
-                <?PHP if( $current_fun!='index' && $current_fun!=$current_page ): ?>&nbsp;>>>&nbsp;<a href="<?=base_url()?>{current_page}" title="{current_title}"><span>{current_title}</span></a><?PHP endif; ?>
-                &nbsp;>>>&nbsp;{title}
-            </div>
+            <ol class="breadcrumb">
+                <li><a href="<?=base_url()?>" title="首頁"><span>首頁</span></a></li>
+                <?PHP if( $current_fun!='index' && $current_fun!=$current_page ): ?>
+                <li><a href="<?=base_url()?>{current_page}" title="{current_title}"><span>{current_title}</span></a></li>
+                <?PHP endif; ?>
+                <li class="active">{title}</li>
+            </ol>
         <?PHP endif; ?>
 
         <h1>{title}</h1>
@@ -151,10 +153,8 @@
 
         <?php $this->benchmark->mark('end'); $elapsed_time = $this->benchmark->elapsed_time('start', 'end'); ?>
         <p class="footer">Page rendered in <strong><?php echo $elapsed_time; ?></strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-
-        <?PHP if( $current_page=='session_test'): ?><div>COOKIE :<?PHP print_r($_COOKIE); ?></div><?PHP endif; ?>
     </div>
 
-    <img id="gotop" src="<?=base_url()?>css/images/icons-svg/arrow-u-black.svg">
+    <img id="goTop" src="<?=base_url()?>css/images/icons-svg/arrow-u-black.svg">
 </body>
 </html>

@@ -14,38 +14,51 @@ class Array_filter extends CI_Controller {
     public function index()
     {
         // 中間挖掉的部分
-        $content_div = '';
+        $data['content'] = [];
 
-        $entry = [0 => 'foo', 1 => false, 2 => -1, 3 => null, 4 => '', ];
-        $content_div .= '$entry'.'<br>';
-        $content_div .= print_r($entry, TRUE).'<br><br>';
-        $content_div .= 'array_filter($entry)'.'<br>';
-        $content_div .= print_r(array_filter($entry), TRUE).'<br><br>';
+        $entry = [0 => 'foo', 1 => false, 2 => -1, 3 => null, 4 => '', 'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, ];
+        $data['content'][] = [
+            'class'=>'bg_gray_2',
+            'string'=>'$entry<br>'.var_export($entry, TRUE).'<br>',
+        ];
+        $data['content'][] = [
+            'class'=>'bg_gray_1',
+            'string'=>'array_filter($entry)<br>'.var_export(array_filter($entry), TRUE).'<br>',
+        ];
+        $data['content'][] = [
+            'class'=>'bg_gray_1',
+            'string'=>'array_filter($entry, function($v) { return $v == "b";})<br>'.var_export(array_filter($entry, function($v) { return $v==3;}), TRUE).'<br>',
+        ];
+        $data['content'][] = [
+            'class'=>'bg_gray_1',
+            'string'=>'array_map(function ($v) { return $v ?: null; }, $entry)<br>'.var_export(array_map(function ($v) { return $v ?: null; }, $entry), TRUE).'<br>',
+        ];
 
         $array1 = array("a"=>1, "b"=>2, "c"=>3, "d"=>4, "e"=>5);
-        $content_div .= '$array1'.'<br>';
-        $content_div .= print_r($array1, TRUE).'<br><br>';
-        $content_div .= 'array_filter($array1, "odd")'.'<br>';
-        $content_div .= print_r(array_filter($array1, "odd"), TRUE).'<br><br>';
+        $data['content'][] = [
+            'class'=>'bg_gray_2',
+            'string'=>'$array1<br>'.var_export($array1, TRUE).'<br>',
+        ];
+        $data['content'][] = [
+            'class'=>'bg_gray_1',
+            'string'=>'function odd($var){ return($var & 1); }<br>array_filter($array1, "odd")<br>'.var_export(array_filter($array1, "odd"), TRUE).'<br>',
+        ];
 
         $array2 = array(6, 7, 8, 9, 10, 11, 12);
-        $content_div .= '$array2'.'<br>';
-        $content_div .= print_r($array2, TRUE).'<br><br>';
-        $content_div .= 'array_filter($array2, "even")'.'<br>';
-        $content_div .= print_r(array_filter($array2, "even"), TRUE).'<br><br>';
-
-        $arr = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4];
-        $content_div .= '$arr'.'<br>';
-        $content_div .= print_r($arr, TRUE).'<br><br>';
-        $content_div .= 'array_filter($arr, function($v) { return $v == "b";})'.'<br>';
-        $content_div .= print_r(array_filter($arr, function($v) { return $v==3;}), TRUE).'<br><br>';
-
-        $content_div .= 'array_map(function ($v) { return $v ?: null; }, $arr)'.'<br>';
-        $content_div .=  print_r(array_map(function ($v) { return $v ?: null; }, $arr), TRUE).'<br><br>';
+        $data['content'][] = [
+            'class'=>'bg_gray_2',
+            'string'=>'$array2'.'<br>'.var_export($array2, TRUE).'<br>',
+        ];
+        $data['content'][] = [
+            'class'=>'bg_gray_1',
+            'string'=>'function even($var){ return(!($var & 1)); }<br>array_filter($array2, "even")<br>'.var_export(array_filter($array2, "even"), TRUE).'<br>',
+        ];
 
         // $content_div .= var_dump(array_filter($arr, function($v, $k) {
         //     return $k == 'b' || $v == 4;
         // }, 1));
+
+        $content_div = $this->parser->parse('php_test/array_filter_grid_view', $data, true);
 
         // 中間部分塞入外框
         $html_date = [

@@ -1,9 +1,11 @@
 <div id="body">
     <p>{current_page}/{current_fun}</p>
 
-    <form method="POST">
+    <form id="frm1" method="POST">
         <input id="str" type="text" value="">
+        <input id="{csrf_name}" type="hidden" value="{csrf_value}">
         <input id="seach" type="button" value="查詢">
+        <input id="btn_cancel" type="button" value="reset">
     </form>
 
     <!-- Variable Pairs -->

@@ -8,10 +8,11 @@ use Illuminate\Support\Collection;
 
 class Datetime_tools_services
 {
-    // public $CI;
+    public $CI;
     public function __construct()
     {
-        // $this->CI = & get_instance();
+        $this->CI = & get_instance();
+        $this->CI->load->helper('date') ;
     }
 
     public function get_show_date()

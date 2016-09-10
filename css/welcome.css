@@ -4,81 +4,35 @@
 ::moz-selection{ background-color: #E13300; color: white; }
 ::webkit-selection{ background-color: #E13300; color: white; }
 
-body {
-    background-color: #fff;
-    margin: 40px;
-    font: 13px/20px normal Helvetica, Arial, sans-serif;
-    color: #4F5155;
+body { background-color: #fff; margin: 40px; font: 13px/20px normal Helvetica, Arial, sans-serif; color: #4F5155; }
+a { color: #003399; background-color: transparent; font-weight: normal; }
+h1 { color: #444; background-color: transparent; border-bottom: 1px solid #D0D0D0; font-size: 19px; font-weight: normal; margin: 0 0 14px 0; padding: 14px 15px 10px 15px; }
+code { font-family: Consolas, Monaco, Courier New, Courier, monospace; font-size: 12px; background-color: #f9f9f9; border: 1px solid #D0D0D0; color: #002166; display: block; margin: 14px 0 14px 0; padding: 12px 10px 12px 10px; }
+#body{ margin: 0 15px 0 15px;min-height: 500px; }
+p.footer{ text-align: right; font-size: 11px; border-top: 1px solid #D0D0D0; line-height: 32px; padding: 0 10px 0 10px; margin: 20px 0 0 0; }
+#container{ margin: 10px; border: 1px solid #D0D0D0; -webkit-box-shadow: 0 0 8px #D0D0D0; }
+.content_block{
+    -webkit-box-shadow: 0 .1em .3em rgba(0, 0, 0,.4);/* iOS <4.3 Android <4.1 */
+                 box-shadow: 0 .1em .3em rgba(0, 0, 0,.4);
+    -webkit-border-radius: .2em;/* support Safari, Chrome */
+        -moz-border-radius: .2em;/* support firefox */
+                 border-radius: .2em;
+    background-color:#DDD;
+    margin: 0.25em;
+    padding: 0.5em;
 }
-
-a {
-    color: #003399;
-    background-color: transparent;
-    font-weight: normal;
-}
-
-h1 {
-    color: #444;
-    background-color: transparent;
-    border-bottom: 1px solid #D0D0D0;
-    font-size: 19px;
-    font-weight: normal;
-    margin: 0 0 14px 0;
-    padding: 14px 15px 10px 15px;
-}
-
-code {
-    font-family: Consolas, Monaco, Courier New, Courier, monospace;
-    font-size: 12px;
-    background-color: #f9f9f9;
-    border: 1px solid #D0D0D0;
-    color: #002166;
-    display: block;
-    margin: 14px 0 14px 0;
-    padding: 12px 10px 12px 10px;
-}
-
-#body{
-    margin: 0 15px 0 15px;min-height: 500px;
-}
-
-p.footer{
-    text-align: right;
-    font-size: 11px;
-    border-top: 1px solid #D0D0D0;
-    line-height: 32px;
-    padding: 0 10px 0 10px;
-    margin: 20px 0 0 0;
-}
-
-#container{
-    margin: 10px;
-    border: 1px solid #D0D0D0;
-    -webkit-box-shadow: 0 0 8px #D0D0D0;
-}
-.content_block { background-color:#DDD; margin: 1em 0; padding: 0.5em;}
-.content_block:hover { background-color:#f9f9f9;}
+.content_block:hover { background-color: #e2fbca; }/* #f9f9f9 */
 
 /* 大圈圈 加 字 */
-.abgne-loading-20140206-2 {
-    position: relative;
-    height: 26px;
-    width: 26px;
-    margin: 6px 0 0 14px ;
-}
+.abgne-loading-20140206-2 { position: relative; height: 26px; width: 26px; margin: 6px 0 0 14px ; }
 .abgne-loading-20140206-2 .loading {
-    border-top: 2px solid #333;
-    border-right: 2px solid #000;
-    border-bottom: 2px solid #999;
-    border-left: 2px solid #666;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
+    border-top: 2px solid #333; border-right: 2px solid #000; border-bottom: 2px solid #999; border-left: 2px solid #666;
+    height: 100%; width: 100%; border-radius: 50%;
     -webkit-animation: loading 1s infinite linear;
-    -moz-animation: loading 1s infinite linear;
-    -ms-animation: loading 1s infinite linear;
-    -o-animation: loading 1s infinite linear;
-    animation: loading 1s infinite linear;
+        -moz-animation: loading 1s infinite linear;
+          -ms-animation: loading 1s infinite linear;
+             -o-animation: loading 1s infinite linear;
+                 animation: loading 1s infinite linear;
 }
 .abgne-loading-20140206-2 .word {
     color: #333;
@@ -150,22 +104,12 @@ Safari 和 Chrome 支持替代的 @-webkit-keyframes 规则。
 }
 table td, table th {padding:.5em;}
 
-#gotop {
-    width: 24px;
-    height: 24px;
-    padding: 5px;
-    display: none;
-    position: fixed;
-    right: 20px;
-    bottom: 20px;background: #777;
-    color: white;
-    cursor: pointer;
-}
-
+#goTop { width: 24px; height: 24px; padding: 5px; display: none; position: fixed; right: 20px; bottom: 20px;background: #777; color: white; cursor: pointer; }
 .mg1em{margin: 1em}
 .mg1211{margin: 1em 2em 1em 1em}
 .padding1em{padding: 1em}
 .float_left{float:left}
 .float_right{float:right}
-
 .drap_div {float:left; width:322px; height:222px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
+.bg_gray_1 { background-color: rgba(0, 0, 0, .1); }
+.bg_gray_2 { background-color: rgba(0, 0, 0, .3); }

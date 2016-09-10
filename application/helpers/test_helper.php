@@ -68,4 +68,14 @@ if(!function_exists('load_html_file'))
         return $html;
     }
 }
+
+if(!function_exists('my_str_replace'))
+{
+    function my_str_replace($str)
+    {
+        $order = ["\r\n", "\n", "\r", "￼", "<br />", "<br/>"];
+        $str = str_replace($order,"<br>",$str);// HTML5 寫法
+        return $str;
+    }
+}
 ?>

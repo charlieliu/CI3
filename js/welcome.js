@@ -1,14 +1,14 @@
 $(function(){
-    $("#gotop").click(function(){
+    $("#goTop").click(function(){
         jQuery("html,body").animate({
             scrollTop:0
         },500);
     });
     $(window).scroll(function() {
         if ( $(this).scrollTop() > 300){
-            $('#gotop').fadeIn("fast");
+            $('#goTop').fadeIn("fast");
         } else {
-            $('#gotop').stop().fadeOut("fast");
+            $('#goTop').stop().fadeOut("fast");
         }
     });
     console.log(navigator.userAgent.toLowerCase());

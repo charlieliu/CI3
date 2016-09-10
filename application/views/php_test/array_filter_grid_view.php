@@ -1,0 +1,1 @@
+<div class="container-fluid">{content}<div class="content_block mg1em {class}">{string}</div>{/content}</div>
