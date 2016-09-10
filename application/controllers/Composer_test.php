@@ -56,11 +56,7 @@ class Composer_test extends CI_Controller {
         /* ========== Closure end ========= */
 
         /* ========== Callback start ========= */
-        $output['map'] = $collection
-                                    ->map(function ($item){
-                                        if(gettype($item) == 'array') $item[] = 'array';
-                                        return $item;
-                                    });
+        $output['map'] = $collection->map(function ($item){ if(gettype($item) == 'array') $item[] = 'array'; return $item; });
         $each = [];
         $collection->each(function ($item, $key) use(&$each){ $each[] = ['key'=>$key,'item'=>$item, ]; });
         $output['each'] = $each;
