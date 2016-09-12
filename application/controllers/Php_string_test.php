@@ -53,6 +53,14 @@ class Php_string_test extends CI_Controller {
             'content_title' => 'strlen 測試',
             'content_url' => strtolower(__CLASS__).'/strlen',
         ) ;
+        $content[] = array(
+            'content_title' => 'mcrypt_encode 測試',
+            'content_url' => strtolower(__CLASS__).'/mcrypt_encode',
+        ) ;
+        $content[] = array(
+            'content_title' => 'mcrypt_decode 測試',
+            'content_url' => strtolower(__CLASS__).'/mcrypt_decode',
+        ) ;
 
         $this->page_list = $content ;
     }
@@ -413,6 +421,144 @@ class Php_string_test extends CI_Controller {
         $html_date = $data ;
         $html_date['content_div'] = $content_div ;
         $this->parser->parse('index_view', $html_date ) ;
+    }
+
+    public function mcrypt_encode()
+    {
+        // 顯示資料
+        $content = [];
+
+        $cipher = 'tripledes';
+        $content[] = array(
+            'content_title'=>'cipher',
+            'content_value'=>var_export($cipher, TRUE),
+        ) ;
+        $mode = 'ecb';
+        $content[] = array(
+            'content_title'=>'mode',
+            'content_value'=>var_export($mode, TRUE),
+        ) ;
+        $key = 'Vb71f9e993d0Vc5f4cbc0075';
+        $content[] = array(
+            'content_title'=>'key',
+            'content_value'=>var_export($key, TRUE),
+        ) ;
+        $iv = FALSE;
+        $content[] = array(
+            'content_title'=>'iv',
+            'content_value'=>var_export($iv, TRUE),
+        ) ;
+
+        $data = '123';
+        $content[] = array(
+            'content_title'=>'data',
+            'content_value'=>var_export($data, TRUE),
+        ) ;
+
+        // int mcrypt_get_block_size ( string $cipher , string $mode )
+        // $cipher 常量中的一个，或者是字符串值的算法名称。
+        // $mode 常量中的一个，或以下字符串中的一个："ecb"，"cbc"，"cfb"，"ofb"，"nofb" 和 "stream"
+        $block = mcrypt_get_block_size($cipher, $mode); // 8
+        $pad = $block - (strlen($data) % $block);
+        $data .= str_repeat(chr($pad), $pad);
+        // string mcrypt_encrypt ( string $cipher , string $key , string $data , string $mode [, string $iv ] )
+        $passcrypt = mcrypt_encrypt($cipher, $key, $data, $mode, $iv);
+        $content[] = array(
+            'content_title'=>'mcrypt_encrypt ( string $cipher , string $key , string $data , string $mode [, string $iv ] )',
+            'content_value'=>var_export($passcrypt, TRUE),
+        ) ;
+
+        $passcrypt = base64_encode($passcrypt);
+        $content[] = array(
+            'content_title'=>'base64_encode',
+            'content_value'=>var_export($passcrypt, TRUE),
+        ) ;
+
+        // 標題 內容顯示
+        $data = array(
+            'title'      => 'mcrypt_encode',
+            'current_title' => $this->current_title,
+            'current_page'  => strtolower(__CLASS__), // 當下類別
+            'current_fun'=> strtolower(__FUNCTION__), // 當下function
+            'content'    => $content,
+        );
+
+        // 中間挖掉的部分
+        $content_div = $this->parser->parse('php_test/test_view', $data, true);
+        // 中間部分塞入外框
+        $html_date = $data ;
+        $html_date['content_div'] = $content_div ;
+
+        $view = $this->parser->parse('index_view', $html_date, true);
+        $this->pub->remove_view_space($view);
+    }
+
+    public function mcrypt_decode()
+    {
+        //  顯示資料
+        $content = [];
+
+        $cipher = 'tripledes';
+        $content[] = array(
+            'content_title'=>'cipher',
+            'content_value'=>var_export($cipher, TRUE),
+        ) ;
+        $mode = 'ecb';
+        $content[] = array(
+            'content_title'=>'mode',
+            'content_value'=>var_export($mode, TRUE),
+        ) ;
+        $key = 'Vb71f9e993d0Vc5f4cbc0075';
+        $content[] = array(
+            'content_title'=>'key',
+            'content_value'=>var_export($key, TRUE),
+        ) ;
+        $iv = FALSE;
+        $content[] = array(
+            'content_title'=>'iv',
+            'content_value'=>var_export($iv, TRUE),
+        ) ;
+
+        $data = 'Z81pyNdsjHI';
+        $content[] = array(
+            'content_title'=>'data',
+            'content_value'=>var_export($data, TRUE),
+        ) ;
+
+        $data = base64_decode($data);
+        $str = mcrypt_decrypt($cipher, $key, $data, $mode, $iv);
+        $content[] = array(
+            'content_title'=>'$str = mcrypt_decrypt($cipher, $key, $data, $mode, $iv);',
+            'content_value'=>var_export($str, TRUE),
+        ) ;
+        $pad = ord($str[strlen($str) - 1]);
+        $content[] = array(
+            'content_title'=>'$pad',
+            'content_value'=>var_export($pad, TRUE),
+        ) ;
+        $paintext = substr($str, 0, strlen($str) - $pad);
+        $content[] = array(
+            'content_title'=>'ubstr($str, 0, strlen($str) - $pad)',
+            'content_value'=>var_export($paintext, TRUE),
+        ) ;
+
+        // 標題 內容顯示
+        $data = array(
+            'title'      => 'mcrypt_decode',
+            'current_title' => $this->current_title,
+            'current_page'  => strtolower(__CLASS__), // 當下類別
+            'current_fun'=> strtolower(__FUNCTION__), // 當下function
+            'content'    => $content,
+        );
+
+        // 中間挖掉的部分
+        $content_div = $this->parser->parse('php_test/test_view', $data, true);
+        // 中間部分塞入外框
+        $html_date = $data ;
+        $html_date['content_div'] = $content_div ;
+
+        $view = $this->parser->parse('index_view', $html_date, true);
+        $this->pub->remove_view_space($view);
     }
 }
 ?>
