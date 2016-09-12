@@ -54,11 +54,22 @@ class Array_filter extends CI_Controller {
             'string'=>'function even($var){ return(!($var & 1)); }<br>array_filter($array2, "even")<br>'.var_export(array_filter($array2, "even"), TRUE).'<br>',
         ];
 
-        // $content_div .= var_dump(array_filter($arr, function($v, $k) {
-        //     return $k == 'b' || $v == 4;
-        // }, 1));
+        // PHP 5.5.9 : array_filter() expects at most 2 parameters, 3 given
+        $arr = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4];
+        $data['content'][] = [
+            'class'=>'bg_gray_2',
+            'string'=>'$arr'.'<br>'.var_export($arr, TRUE).'<br>',
+        ];
 
-        $content_div = $this->parser->parse('php_test/array_filter_grid_view', $data, true);
+        $data['content'][] = [
+            'class'=>'bg_gray_1',
+            'string'=>'array_filter($arr, function($k){  return $k == "b"; }, ARRAY_FILTER_USE_KEY)<br>'.var_export(array_filter($arr, function($k){  return $k == 'b'; }, ARRAY_FILTER_USE_KEY), TRUE).'<br>',
+        ];
+
+        $data['content'][] = [
+            'class'=>'bg_gray_1',
+            'string'=>'array_filter($arr, function($v, $k) { return $k == "b" || $v == 4; }, ARRAY_FILTER_USE_BOTH)<br>'.var_export(array_filter($arr, function($v, $k) { return $k == 'b' || $v == 4; }, ARRAY_FILTER_USE_BOTH), TRUE).'<br>',
+        ];
 
         // 中間部分塞入外框
         $html_date = [
@@ -67,7 +78,7 @@ class Array_filter extends CI_Controller {
             'current_page' => strtolower(__CLASS__), // 當下類別
             'current_fun' => strtolower(__FUNCTION__), // 當下function
             'content' => [],
-            'content_div'=>$content_div,
+            'content_div'=>$this->parser->parse('php_test/array_filter_grid_view', $data, true),
         ] ;
 
         $view = $this->parser->parse('index_view', $html_date, true);
