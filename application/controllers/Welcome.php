@@ -128,7 +128,12 @@ class Welcome extends CI_Controller {
         ) ;
         $content[] = array(
             'content_title' => 'Array_filter 測試',
-            'content_url' => base_url().'Array_filter'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
+            'content_url' => base_url().'array_filter'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
+            'c'=>'php_test',
+        ) ;
+        $content[] = array(
+            'content_title' => 'Constant 測試',
+            'content_url' => base_url().'constant_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
             'c'=>'php_test',
         ) ;
         $content[] = array(
