@@ -34,6 +34,39 @@ class Magic_test extends CI_Controller {
             $this->load->model('php_test_model','',TRUE) ;
             $this->php_test_model->query_user_agent($this->UserAgent) ;
         }
+
+        // 顯示資料
+        $content = [];
+        $content[] = [
+            'content_title' => 'function string',
+            'content_url' => strtolower(__CLASS__).'/index/string/value/123',
+            ] ;
+        $content[] = array(
+            'content_title' => 'String',
+            'content_url' => strtolower(__CLASS__).'/index/String',
+        ) ;
+        $content[] = array(
+            'content_title' => 'empty',
+            'content_url' => strtolower(__CLASS__).'/index/empty/false/null',
+        ) ;
+        $content[] = array(
+            'content_title' => 'function foobar',
+            'content_url' => strtolower(__CLASS__).'/index/foobar',
+        ) ;
+        $content[] = array(
+            'content_title' => 'function Foobar2',
+            'content_url' => strtolower(__CLASS__).'/index/Foobar2',
+        ) ;
+        $content[] = array(
+            'content_title' => 'static function __callStatic',
+            'content_url' => strtolower(__CLASS__).'/index/__callStatic',
+        ) ;
+        $content[] = array(
+            'content_title' => 'function Namespace',
+            'content_url' => strtolower(__CLASS__).'/index/Namespace',
+        ) ;
+
+        $this->page_list = $content ;
     }
 
     // 取得標題
@@ -47,24 +80,24 @@ class Magic_test extends CI_Controller {
     {
         if( empty($method) )
         {
+            $content = $this->page_list ;
+
             // 標題 內容顯示
             $data = array(
-                'title' => $this->current_title,
+                'title' => 'Magic Method 測試',
                 'current_title' => $this->current_title,
                 'current_page' => strtolower(__CLASS__), // 當下類別
                 'current_fun' => strtolower(__FUNCTION__), // 當下function
+                'content' => $content,
             );
-            $data = array_merge($data,$this->_csrf);
-            $data['content_div']  = '<div class="container-fluid">';
-            $data['content_div'] .= $data['current_page'].'/'.$data['current_fun']. "<br>===================<br>";
-            $data['content_div'] .= '<a href="'.base_url($data['current_page'].'/'.$data['current_fun'].'/string/value/123').'">string</a><br>' ;
-            $data['content_div'] .= '<a href="'.base_url($data['current_page'].'/'.$data['current_fun'].'/String').'">String</a><br>' ;
-            $data['content_div'] .= '<a href="'.base_url($data['current_page'].'/'.$data['current_fun'].'/empty/false/null').'">empty</a><br>' ;
-            $data['content_div'] .= '<a href="'.base_url($data['current_page'].'/'.$data['current_fun'].'/foobar').'">foobar</a><br>' ;
-            $data['content_div'] .= '<a href="'.base_url($data['current_page'].'/'.$data['current_fun'].'/Foobar2').'">Foobar2</a><br>' ;
-            $data['content_div'] .= '<a href="'.base_url($data['current_page'].'/'.$data['current_fun'].'/__callStatic').'">__callStatic</a><br>' ;
-            $data['content_div'] .= '</div>';
-            $view = $this->parser->parse('index_view', $data, true);
+
+            // 中間挖掉的部分
+            $content_div = $this->parser->parse('welcome_view', $data, true);
+            // 中間部分塞入外框
+            $html_date = $data ;
+            $html_date['content_div'] = $content_div ;
+
+            $view = $this->parser->parse('index_view', $html_date, true);
             $this->pub->remove_view_space($view);
         }
         else
@@ -79,8 +112,8 @@ class Magic_test extends CI_Controller {
         $content_div .= __CLASS__.'/'.__FUNCTION__ ;
         $content_div .= '<br>===================<br>';
         $content_div .= 'function string($v1, $v2)<br>';
-        $content_div .= '$v1 = '.var_export($v1 ,TRUE).'<br>';
-        $content_div .= '$v2 = '.var_export($v2 ,TRUE).'<br>';
+        $content_div .= '$v1 = '.var_export($v1, TRUE).'<br>';
+        $content_div .= '$v2 = '.var_export($v2, TRUE).'<br>';
         $content_div .= '</div>';
 
         // 標題 內容顯示
@@ -100,7 +133,7 @@ class Magic_test extends CI_Controller {
     {
         // 標題 內容顯示
         $data = array(
-            'title' => $this->current_title,
+            'title' => '__call',
             'current_title' => $this->current_title,
             'current_page' => strtolower(__CLASS__), // 當下類別
             'current_fun' => strtolower(__FUNCTION__), // 當下function
@@ -134,7 +167,7 @@ class Magic_test extends CI_Controller {
 
         // 標題 內容顯示
         $data = [
-            'title' => 'Magic Method 測試',
+            'title' => 'static function __callStatic()',
             'current_title' => 'Magic Method 測試',
             'current_page' => strtolower(__CLASS__), // 當下類別
             'current_fun' => strtolower(__FUNCTION__), // 當下function
@@ -144,14 +177,14 @@ class Magic_test extends CI_Controller {
         $CI->pub->remove_view_space($view);
     }
 
-    public function foobar($arg, $arg2)
+    public function foobar()
     {
         // Call the $foo->bar() method with 2 arguments
         $foo = new foo;
         call_user_func_array(array($foo, "bar"), array("three", "four"));
     }
 
-    public function Foobar2($arg, $arg2)
+    public function Foobar2()
     {
         // Call the bar() function with 2 arguments
         call_user_func_array([$this, "bar"], array("one", "two"));
@@ -178,6 +211,26 @@ class Magic_test extends CI_Controller {
         $view = $this->parser->parse('index_view', $data, true);
         $this->pub->remove_view_space($view);
     }
+
+    public function Namespace()
+    {
+        $content_div  = '<div class="container-fluid">';
+        $content_div .= __CLASS__.'/'.__FUNCTION__ ;
+        $content_div .= '<br>===================<br>';
+        $content_div .= '__NAMESPACE__ = '.var_export(__NAMESPACE__, TRUE).'<br>';
+        $content_div .= '</div>';
+
+        // 標題 內容顯示
+        $data = array(
+            'title' => 'function Namespace()',
+            'current_title' => $this->current_title,
+            'current_page' => strtolower(__CLASS__), // 當下類別
+            'current_fun' => strtolower(__FUNCTION__), // 當下function
+            'content_div' => $content_div,
+        );
+        $view = $this->parser->parse('index_view', $data, true);
+        $this->pub->remove_view_space($view);
+    }
 }
 
 class foo {
@@ -187,6 +240,8 @@ class foo {
         $str  = '<div class="container-fluid">';
         $str .= __CLASS__.'/'.__FUNCTION__ ;
         $str .= '<br>===================<br>';
+        $str .= 'Call the $foo->bar() method with 2 arguments';
+        $str .= '<hr>';
         $str .= "Calling static arg : ". var_export($arg, TRUE) ;
         $str .= '<hr>';
         $str .= "Calling static arg2 : ". var_export($arg2, TRUE) ;
