@@ -122,7 +122,7 @@ class Welcome extends CI_Controller {
             'c'=>'php_test',
         ) ;
         $content[] = array(
-            'content_title' => 'Composer 測試',
+            'content_title' => 'laravel Composer 測試',
             'content_url' => base_url().'composer_test'.(base_url()=='http://localhost/'?'?XDEBUG_SESSION_START=sublime.xdebug':''),
             'c'=>'php_test',
         ) ;
