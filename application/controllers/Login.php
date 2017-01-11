@@ -51,13 +51,13 @@ class Login extends CI_Controller {
 	{
 		// 標題 內容顯示
 		$data = array(
-			'title'         	=> $this->current_title,
-			'current_title' 	=> $this->current_title,
-			'current_page'  	=> strtolower(__CLASS__), // 當下類別
-			'current_fun'   	=> strtolower(__FUNCTION__), // 當下function
-			'btn_value'     	=> 'login',
-			'btn_url'       	=> 'check_login',
-			'base_url'      	=> base_url(),
+			'title'		=> $this->current_title,
+			'current_title'	=> $this->current_title,
+			'current_page'	=> strtolower(__CLASS__), // 當下類別
+			'current_fun'	=> strtolower(__FUNCTION__), // 當下function
+			'btn_value'	=> 'login',
+			'btn_url'	=> 'check_login',
+			'base_url'	=> base_url(),
 		);
 
 		// Template parser class

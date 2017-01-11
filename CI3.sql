@@ -1,3 +1,4 @@
+CREATE USER 'asap'@'%' IDENTIFIED BY 'Vt6H2JRmVBJuZx4x';
 -- phpMyAdmin SQL Dump
 -- version 4.4.11
 -- http://www.phpmyadmin.net

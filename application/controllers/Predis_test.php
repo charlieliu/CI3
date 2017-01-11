@@ -230,8 +230,8 @@ class Predis_test extends CI_Controller {
 
 	public function do_redis()
 	{
-		$this->load->library('xhprof') ;
-		$this->xhprof->XHProf_Start() ;
+		// $this->load->library('xhprof') ;
+		// $this->xhprof->XHProf_Start() ;
 		// Predis start
 		$this->benchmark->mark('total_time_start');
 		$this->redis = new Predis\Client() ;
@@ -878,7 +878,7 @@ class Predis_test extends CI_Controller {
 		$this->benchmark->mark('total_time_end');
 		$time['total_time'] = $this->benchmark->elapsed_time('total_time_start','total_time_end');
 		$this->_redis_log = print_r($time, TRUE) ;
-		$run_id = $this->xhprof->XHProf_End('redis',('Predis_'.$input['redis_act']) ) ;
+		// $run_id = $this->xhprof->XHProf_End('redis',('Predis_'.$input['redis_act']) ) ;
 
 		$output = array(
 			'result'=>$result,
@@ -886,7 +886,7 @@ class Predis_test extends CI_Controller {
 			'post'=>$post,
 			'input'=>$input,
 			'redis_log'=>$this->_redis_log,
-			'run_id'=>$run_id,
+			// 'run_id'=>$run_id,
 			'xhprof_dif'=>$this->query_xhprof_log($input['redis_act']),
 		);
 		echo json_encode($output) ;
