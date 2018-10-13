@@ -1,4 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ini_set("session.cookie_httponly", 1);
+header("x-frame-options:sammeorigin");
+header('Content-Type: text/html; charset=utf8');
 
 use Services\Atm_services;
 use Services\Tools_services;
@@ -17,10 +20,6 @@ class Composer_test extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-
-        ini_set("session.cookie_httponly", 1);
-        header("x-frame-options:sammeorigin");
-        header('Content-Type: text/html; charset=utf8');
 
         $this->load->helper(array('form', 'url'));
 

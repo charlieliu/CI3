@@ -1,12 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
 // returns whether the input integer is odd
 function odd($var){ return($var & 1); }
 
 // returns whether the input integer is even
 function even($var){ return(!($var & 1)); }
 
-class Array_filter extends CI_Controller {
+class Array_filter extends CI_Controller
+{
 
     /**
      * @author Charlie Liu <liuchangli0107@gmail.com>

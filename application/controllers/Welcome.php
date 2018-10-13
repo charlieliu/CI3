@@ -1,7 +1,8 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+ini_set("session.cookie_httponly", 1);
 
-class Welcome extends CI_Controller {
+class Welcome extends CI_Controller
+{
 
     public $current_title = '首頁';
 
@@ -18,12 +19,19 @@ class Welcome extends CI_Controller {
     {
         parent::__construct();
 
-        ini_set("session.cookie_httponly", 1);
         header("x-frame-options:sammeorigin");
         header('Content-Type: text/html; charset=utf8');
-        // load parser
-        //$this->load->library(array('parser','session', 'pub'));
-        $this->load->helper(array('form', 'url'));
+
+        $this->load->library([
+            'parser',
+            'session',
+            'pub'
+        ]);
+        $this->load->helper([
+            'form',
+            'url'
+        ]);
+
         $this->load->model('php_test_model','',TRUE) ;
 
         $this->pub->check_login();

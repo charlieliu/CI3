@@ -1,4 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ini_set("session.cookie_httponly", 1);
+header("x-frame-options:sammeorigin");
+header('Content-Type: text/html; charset=utf8');
 
 class Css_test extends CI_Controller {
 
@@ -17,9 +20,6 @@ class Css_test extends CI_Controller {
     {
         parent::__construct();
 
-        ini_set("session.cookie_httponly", 1);
-        header("x-frame-options:sammeorigin");
-        header('Content-Type: text/html; charset=utf8');
         // load parser
         //$this->load->library(array('parser','session', 'pub'));
         $this->load->helper(array('form', 'url'));

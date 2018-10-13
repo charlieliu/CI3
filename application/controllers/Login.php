@@ -1,4 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ini_set("session.cookie_httponly", 1);
+header("x-frame-options:sammeorigin");
+header('Content-Type: text/html; charset=utf8');
 
 class Login extends CI_Controller {
 
@@ -16,19 +19,24 @@ class Login extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		ini_set("session.cookie_httponly", 1);
-		header("x-frame-options:sammeorigin");
-		header('Content-Type: text/html; charset=utf8');
 
 		// for CSRF
 		$this->_csrf = array(
-			'csrf_name' => $this->security->get_csrf_token_name(),
-			'csrf_value' => $this->security->get_csrf_hash(),
+			'csrf_name' 	=> $this->security->get_csrf_token_name(),
+			'csrf_value' 	=> $this->security->get_csrf_hash(),
 		);
 
 		// load parser
-		$this->load->library(array('parser','session', 'pub','password_strength'));
-		$this->load->helper(array('form', 'url'));
+		$this->load->library([
+			'parser',
+			'session',
+			'pub',
+			'password_strength'
+		]);
+		$this->load->helper([
+			'form',
+			'url'
+		]);
 		//$this->pub->check_session($this->session->userdata('session_id'));
 		$this->load->model('php_test_model','',TRUE) ;
 
@@ -51,13 +59,13 @@ class Login extends CI_Controller {
 	{
 		// 標題 內容顯示
 		$data = array(
-			'title'		=> $this->current_title,
+			'title'			=> $this->current_title,
 			'current_title'	=> $this->current_title,
 			'current_page'	=> strtolower(__CLASS__), // 當下類別
 			'current_fun'	=> strtolower(__FUNCTION__), // 當下function
-			'btn_value'	=> 'login',
-			'btn_url'	=> 'check_login',
-			'base_url'	=> base_url(),
+			'btn_value'		=> 'login',
+			'btn_url'		=> 'check_login',
+			'base_url'		=> base_url(),
 		);
 
 		// Template parser class
@@ -70,7 +78,7 @@ class Login extends CI_Controller {
 		$html_date['content_div'] = $content_div ;
 		//$html_date['css'][] = 'css/bootstrap-3.2.0-dist/css/bootstrap.min.css';
 		$html_date['js'][] = 'css/bootstrap-3.2.0-dist/js/bootstrap.min.js';
-		//$html_date['js'][] = base_url().'login/get_url/login';
+		//$html_date['js'][] = base_url('login/get_url/login');
 		$html_date['js'][] = 'js/login.js';
 
 		$view = $this->parser->parse('index_view', $html_date, true);
@@ -80,9 +88,12 @@ class Login extends CI_Controller {
 
 	public function check_login()
 	{
-		$post = $this->input->post();
-		$post = $this->pub->trim_val($post);
-		$status = '' ;
+		$post 		= $this->input->post();
+		$post 		= $this->pub->trim_val($post);
+		$status 	= '' ;
+		$userdata 	= [];
+		$all_userdata = '';
+		$session_id = '';
 
 		if( empty($post['username']) )
 		{
@@ -120,21 +131,17 @@ class Login extends CI_Controller {
 				{
 					$updateUsers = $this->login_model->updateUsers($users['data'][0]['uid']);
 
+					$token = md5($users['data'][0]['uid'].date('Ymdhis').$users['data'][0]['username']);
+
 					$userdata = array(
-						'uid'=>$users['data'][0]['uid'],
-						'username'=>$users['data'][0]['username'],
-						'updateUsers'=>$updateUsers,
+						'uid'			=> $users['data'][0]['uid'],
+						'username'		=> $users['data'][0]['username'],
+						'updateUsers'	=> $updateUsers,
+						'last_activity' => date('Y-m-d H:i:s'),
+						'token' 		=> $token
 					);
 					$this->session->set_userdata($userdata);
-
-					if( isset($_COOKIE['ci_session']) )
-					{
-						$status = 100;
-					}
-					else
-					{
-						$status = 200;
-					}
+					$status = 100;
 				}
 			}
 			else
@@ -143,13 +150,13 @@ class Login extends CI_Controller {
 			}
 		}
 
-		if( !empty($post) )
+		$output_ary = [
+			'status' 	=> $status,
+		];
+
+		if( ! empty($post) )
 		{
-			$output_ary = array_merge(array('status'=>$status,),$post) ;
-		}
-		else
-		{
-			$output_ary = array('status'=>$status) ;
+			$output_ary['post'] = $post;
 		}
 		echo json_encode($output_ary);
 	}
@@ -237,11 +244,11 @@ class Login extends CI_Controller {
 					//$salt = rand(101,999);
 					$salt = $this->password_strength->get_salt() ;
 					$data = array(
-						'username'=>$post['username'],
-						'salt'=>$salt,
-						'password'=>md5($salt.$post['pwd']),
-						'email'=>$post['email'],
-						'addr'=>$post['addr'],
+						'username' 	=> $post['username'],
+						'salt' 		=> $salt,
+						'password' 	=> md5($salt.$post['pwd']),
+						'email' 	=> $post['email'],
+						'addr' 		=> $post['addr'],
 					);
 					$status = $this->login_model->insUsers($data);
 				}
@@ -262,13 +269,13 @@ class Login extends CI_Controller {
 	public function get_url($tag='')
 	{
 		header('content-type: application/javascript') ;
-		echo 'var IndexURLs = "'.base_url().'";' ;
+		echo 'var IndexURLs = "'.base_url('welcome').'";' ;
 		switch ($tag) {
 			case 'login':
-				echo 'var URLs = "'.base_url().'login/check_login";' ;
+				echo 'var URLs = "'.base_url('login/check_login').'";' ;
 				break;
 			case 'register':
-				echo 'var URLs = "'.base_url().'login/do_register";' ;
+				echo 'var URLs = "'.base_url('login/do_register').'";' ;
 				break;
 			default:
 				echo 'var URLs = "'.base_url().'";' ;
@@ -282,4 +289,4 @@ class Login extends CI_Controller {
 		header('Location: '.base_url()) ;
 	}
 }
-?>
+

@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
-* @author Charlie Liu <liuchangli0107@gmail.com>
-*/
+ini_set("session.cookie_httponly", 1);
+header("x-frame-options:sammeorigin");
+header('Content-Type: text/html; charset=utf8');
 
 class Magic_test extends CI_Controller {
 
@@ -15,10 +15,6 @@ class Magic_test extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-
-        ini_set("session.cookie_httponly", 1);
-        header("x-frame-options:sammeorigin");
-        header('Content-Type: text/html; charset=utf8');
 
         // for CSRF
         $this->_csrf = array(

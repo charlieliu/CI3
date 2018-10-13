@@ -1,8 +1,8 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 set_time_limit ( 604800 );
-//echo 'LINE : '.__LINE__.'<br>' ;
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-//echo 'LINE : '.__LINE__.'<br>' ;
+ini_set("session.cookie_httponly", 1);
+header("x-frame-options:sammeorigin");
+header('Content-Type: text/html; charset=utf8');
 
 class Add_hash_lib extends CI_Controller {
 
@@ -10,18 +10,8 @@ class Add_hash_lib extends CI_Controller {
 	{
 		parent::__construct();
 
-		ini_set("session.cookie_httponly", 1);
-		header("x-frame-options:sammeorigin");
-		header('Content-Type: text/html; charset=utf8');
-		//echo 'LINE : '.__LINE__.'<br>' ;
-
-		// load parser
-		//$this->load->library(array('parser','session', 'pub'));
-		//echo 'LINE : '.__LINE__.'<br>' ;
 		$this->load->helper(array('form', 'url'));
-		//echo 'LINE : '.__LINE__.'<br>' ;
-		$this->load->model('add_hash_lib_model','',TRUE) ;
-		//echo 'LINE : '.__LINE__.'<br>' ;
+		$this->load->model('add_hash_lib_model','',TRUE);
 
 		$this->pub->check_login();
 	}

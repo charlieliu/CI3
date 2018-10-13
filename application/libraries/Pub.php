@@ -1,6 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pub{
+class Pub
+{
 	public function CurlPost($postURL='', $postdata='')
 	{
 		if( empty($postURL) )
@@ -549,17 +550,17 @@ class Pub{
 
 	public function check_login()
 	{
-		if( !isset($_SESSION['uid']) || empty($_SESSION['username']) )
-		{
-			//exit(base_url().'login');
-			//header('Location: '.base_url().'login') ;
-			redirect(base_url('login'));
-			exit(base_url().'login');
-		}
-		else
-		{
-			//print_r($_SESSION) ;
-		}
+		// $userdata = $obj->all_userdata();
+		// if( ! isset($userdata['uid'])
+		// 	|| empty($userdata['username']) )
+		// {
+		// 	var_dump($userdata);
+		// 	// redirect(base_url('login'));
+		// 	exit();
+		// }
+
+		// $userdata['last_activity'] = date('Y-m-d H:i:s');
+		// $obj->set_userdata($userdata);
 	}
 }
 ?>
