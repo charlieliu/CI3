@@ -75,11 +75,11 @@ class Datetime_test extends CI_Controller {
 
         // 標題 內容顯示
         $data = array(
-            'title'                     => 'PHP DateTime 測試',
-            'current_title'      => $this->current_title,
-            'current_page'    => strtolower(__CLASS__),         // 當下類別
-            'current_fun'       => strtolower(__FUNCTION__),// 當下function
-            'content'              => $content,
+            'title'         => 'PHP DateTime 測試',
+            'current_title' => $this->current_title,
+            'current_page'  => strtolower(__CLASS__),         // 當下類別
+            'current_fun'   => strtolower(__FUNCTION__),// 當下function
+            'content'       => $content,
         );
 
         // 中間挖掉的部分
@@ -102,7 +102,13 @@ class Datetime_test extends CI_Controller {
         $content = [];
 
         $val_str = '<table border="1">';
-        foreach($date_test as $key=>$val ) $val_str .= '<tr><td>'.$key.'</td><td>'.$val.'</td></tr>';
+        foreach($date_test as $key=>$val )
+        {
+            $val_str .= '<tr>';
+            $val_str .= '<td>'.$key.'</td>';
+            $val_str .= '<td>'.$val.'</td>';
+            $val_str .= '</tr>';
+        }
         $val_str .= '</table>';
 
         $content[] = [
@@ -112,11 +118,11 @@ class Datetime_test extends CI_Controller {
 
         // 標題 內容顯示
         $data = [
-            'title'                   => '時間格式 顯示',
-            'current_title'    => $this->current_title,
-            'current_page'  => strtolower(__CLASS__),           // 當下類別
-            'current_fun'     => strtolower(__FUNCTION__),  // 當下function
-            'content'            => $content,
+            'title'         => '時間格式 顯示',
+            'current_title' => $this->current_title,
+            'current_page'  => strtolower(__CLASS__),       // 當下類別
+            'current_fun'   => strtolower(__FUNCTION__),    // 當下function
+            'content'       => $content,
         ];
 
         // 中間挖掉的部分
@@ -138,12 +144,13 @@ class Datetime_test extends CI_Controller {
             0,
             1.01,
             '01082016',
-            01082016,
+            // 01082016,
             '18082016',
             18082016,
             '20160801',
             20160801,
             strtotime('2016/08/16'),
+            date('Y-m-d'),
             'now()',
             time(),
             '01/08/2016',
@@ -154,23 +161,45 @@ class Datetime_test extends CI_Controller {
             '01-08-2016 08:00:00',
             '18-08-2016',
             '18-08-2016 08:00:00',
+            '2018-11-16+00:00:00'
         ];
 
         // 中間挖掉的部分
-        $content_div = '<table border="1"><tr><th>value</th><th>type</th><th>chk_datetime_input(value)</th></tr>';
-
+        $content_div  = '<table border="1" style="width:98%;margin:1%">';
+        $content_div .= '<thead>';
+        $content_div .= '<tr>';
+        $content_div .= '<th>value</th>';
+        $content_div .= '<th>type</th>';
+        $content_div .= '<th>json_encode(chk_datetime_input(value))</th>';
+        $content_div .= '<th>json_encode(strtotime(value))</th>';
+        $content_div .= '</tr>';
+        $content_div .= '</thead>';
+        $content_div .= '<tbody>';
         foreach ($show_data as $value)
         {
-            $content_div .= '<tr><td>'.var_export($value, TRUE).'</td><td>'.gettype($value).'</td><td>'.chk_datetime_input($value).'</td></tr>';
+            $content_div .= '<tr>';
+            $content_div .= '<td>'.var_export($value, TRUE).'</td>';
+            $content_div .= '<td>'.gettype($value).'</td>';
+            $content_div .= '<td>'.json_encode(chk_datetime_input($value)).'</td>';
+            if (is_string($value))
+            {
+                $content_div .= '<td>'.json_encode(strtotime($value)).'</td>';
+            }
+            else
+            {
+                $content_div .= '<td>not string</td>';
+            }
+            $content_div .= '</tr>';
         }
+        $content_div .= '</tbody>';
         $content_div .= '</table>';
 
         $html_date = [
-            'title'                   => '時間格式 測試',
-            'current_title'    => $this->current_title,
-            'current_page'  => strtolower(__CLASS__),           // 當下類別
-            'current_fun'     => strtolower(__FUNCTION__),  // 當下function
-            'content_div'     => $content_div,
+            'title'         => '時間格式 測試',
+            'current_title' => $this->current_title,
+            'current_page'  => strtolower(__CLASS__),     // 當下類別
+            'current_fun'   => strtolower(__FUNCTION__),  // 當下function
+            'content_div'   => $content_div,
         ];
 
         $view = $this->parser->parse('index_view', $html_date, true);
@@ -201,20 +230,31 @@ class Datetime_test extends CI_Controller {
         ];
 
         // 中間挖掉的部分
-        $content_div = '<table border="1"><tr><th>input</th><th>in time zone</th><th>to time zone</th><th>output</th></tr>';
+        $content_div  = '<table border="1" style="width:98%;margin:1%">';
+        $content_div .= '<tr>';
+        $content_div .= '<th>input</th>';
+        $content_div .= '<th>in time zone</th>';
+        $content_div .= '<th>to time zone</th>';
+        $content_div .= '<th>output</th>';
+        $content_div .= '</tr>';
 
         foreach ($show_data as $row)
         {
-            $content_div .= '<tr><td>'.$row['in_dt'].'</td><td>Asia/Taipei</td><td>'.$row['to_tz'].'</td><td>'.conv_datetime($row['in_dt'], $row['to_tz']).'</td></tr>';
+            $content_div .= '<tr>';
+            $content_div .= '<td>'.$row['in_dt'].'</td>';
+            $content_div .= '<td>Asia/Taipei</td>';
+            $content_div .= '<td>'.$row['to_tz'].'</td>';
+            $content_div .= '<td>'.conv_datetime($row['in_dt'], $row['to_tz']).'</td>';
+            $content_div .= '</tr>';
         }
         $content_div .= '</table>';
 
         $html_date = [
-            'title'                   => 'conv time zone',
-            'current_title'    => $this->current_title,
-            'current_page'  => strtolower(__CLASS__),           // 當下類別
-            'current_fun'     => strtolower(__FUNCTION__),  // 當下function
-            'content_div'     => $content_div,
+            'title'         => 'conv time zone',
+            'current_title' => $this->current_title,
+            'current_page'  => strtolower(__CLASS__),       // 當下類別
+            'current_fun'   => strtolower(__FUNCTION__),    // 當下function
+            'content_div'   => $content_div,
         ];
 
         $view = $this->parser->parse('index_view', $html_date, true);
@@ -233,20 +273,29 @@ class Datetime_test extends CI_Controller {
         ];
 
         // 中間挖掉的部分
-        $content_div = '<table border="1"><tr><th>date</th><th>time zone</th><th>output</th></tr>';
+        $content_div  = '<table border="1" style="width:98%;margin:1%">';
+        $content_div .= '<tr>';
+        $content_div .= '<th>date</th>';
+        $content_div .= '<th>time zone</th>';
+        $content_div .= '<th>output</th>';
+        $content_div .= '</tr>';
 
         foreach ($tz as $val)
         {
-            $content_div .= '<tr><td>'.$dt.'</td><td>'.$val.'</td><td>'.time_zone_format($dt, $val).'</td></tr>';
+            $content_div .= '<tr>';
+            $content_div .= '<td>'.$dt.'</td>';
+            $content_div .= '<td>'.$val.'</td>';
+            $content_div .= '<td>'.time_zone_format($dt, $val).'</td>';
+            $content_div .= '</tr>';
         }
         $content_div .= '</table>';
 
         $html_date = [
-            'title'                   => 'conv time format',
-            'current_title'    => $this->current_title,
+            'title'         => 'conv time format',
+            'current_title' => $this->current_title,
             'current_page'  => strtolower(__CLASS__),           // 當下類別
-            'current_fun'     => strtolower(__FUNCTION__),  // 當下function
-            'content_div'     => $content_div,
+            'current_fun'   => strtolower(__FUNCTION__),  // 當下function
+            'content_div'   => $content_div,
         ];
 
         $view = $this->parser->parse('index_view', $html_date, true);
@@ -274,10 +323,13 @@ class Datetime_test extends CI_Controller {
         }
         */
 
-        $val_str = '<table border="1">';
+        $val_str = '<table border="1" style="width:98%;margin:1%">';
         foreach($date_test as $key=>$val )
         {
-            $val_str .= '<tr><td>'.$key.'</td><td>'.$val.'</td></tr>' ;
+            $val_str .= '<tr>';
+            $val_str .= '<td>'.$key.'</td>';
+            $val_str .= '<td>'.json_encode($val).'</td>';
+            $val_str .= '</tr>' ;
         }
         $val_str .= '</table>';
 
@@ -288,11 +340,11 @@ class Datetime_test extends CI_Controller {
 
         // 標題 內容顯示
         $data = array(
-            'title' => '時間格式顯示',
+            'title'         => '時間格式顯示',
             'current_title' => $this->current_title,
-            'current_page' => strtolower(__CLASS__), // 當下類別
-            'current_fun' => strtolower(__FUNCTION__), // 當下function
-            'content' => $content,
+            'current_page'  => strtolower(__CLASS__),       // 當下類別
+            'current_fun'   => strtolower(__FUNCTION__),    // 當下function
+            'content'       => $content,
         );
 
         // Template parser class
@@ -349,6 +401,7 @@ class Datetime_test extends CI_Controller {
 
 
         $dt = new DateTime();
+        // $date_ary['new DateTime()'] = $dt->format();
 
         $TPTTZ = new DateTimeZone('Asia/Taipei');
         $dt->setTimezone($TPTTZ);
@@ -364,19 +417,20 @@ class Datetime_test extends CI_Controller {
 
         $date_ary['Note'] = 'Dates in the m/d/y or d-m-y formats are disambiguated by looking at the separator between the various components: if the separator is a slash (/), then the American m/d/y is assumed; whereas if the separator is a dash (-) or a dot (.), then the European d-m-y format is assumed. If, however, the year is given in a two digit format and the separator is a dash (-, the date string is parsed as y-m-d. To avoid potential ambiguity, it\'s best to use ISO 8601 (YYYY-MM-DD) dates or DateTime::createFromFormat() when possible.';
 
-        $date_ary["strtotime('01/08/2016')"] = strtotime('01/08/2016');
-        $date_ary["strtotime('01-08-2016')"] = strtotime('01-08-2016');
-        $date_ary["strtotime('08/01/2016')"] = strtotime('08/01/2016');
-        $date_ary["strtotime('08-01-2016')"] = strtotime('08-01-2016');
-        $date_ary["strtotime('2016/08/01)"] = strtotime('2016/08/01');
-        $date_ary["strtotime('2016-08-01')"] = strtotime('2016-08-01');
+        $date_ary["strtotime('01/08/2016')"]    = strtotime('01/08/2016');
+        $date_ary["strtotime('01-08-2016')"]    = strtotime('01-08-2016');
+        $date_ary["strtotime('08/01/2016')"]    = strtotime('08/01/2016');
+        $date_ary["strtotime('08-01-2016')"]    = strtotime('08-01-2016');
+        $date_ary["strtotime('2016/08/01)"]     = strtotime('2016/08/01');
+        $date_ary["strtotime('2016-08-01')"]    = strtotime('2016-08-01');
 
-        $date_ary["strtotime('16/08/2016')"] = strtotime('16/08/2016');
-        $date_ary["strtotime('16-08-2016')"] = strtotime('16-08-2016');
-        $date_ary["strtotime('08/16/2016')"] = strtotime('08/16/2016');
-        $date_ary["strtotime('08-16-2016')"] = strtotime('08-16-2016');
-        $date_ary["strtotime('2016/08/16)"] = strtotime('2016/08/16');
-        $date_ary["strtotime('2016-08-16')"] = strtotime('2016-08-16');
+        $date_ary["strtotime('16/08/2016 00:00:00')"]    = strtotime('16/08/2016 00:00:00');
+        $date_ary["strtotime('16-08-2016 00:00:00')"]    = strtotime('16-08-2016 00:00:00');
+        $date_ary["strtotime('08/16/2016 00:00:00')"]    = strtotime('08/16/2016 00:00:00');
+        $date_ary["strtotime('08-16-2016 00:00:00')"]    = strtotime('08-16-2016 00:00:00');
+        $date_ary["strtotime('2016/08/16 00:00:00)"]     = strtotime('2016/08/16 00:00:00');
+        $date_ary["strtotime('2016-08-16 00:00:00')"]    = strtotime('2016-08-16 00:00:00');
+        $date_ary["strtotime('2016-08-16+00:00:00')"]    = strtotime('2016-08-16+00:00:00');
 
         return $date_ary ;
     }
