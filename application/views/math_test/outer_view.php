@@ -1,5 +1,4 @@
 <div id="body">
-    <p>{current_page}/{current_fun}</p>
 
     <!-- Variable Pairs -->
     <table id="table-transform" border="1" style="margin:1em;font-size:24px;">
